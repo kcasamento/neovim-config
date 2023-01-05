@@ -94,3 +94,8 @@ require'lspconfig'.eslint.setup {
    -- 'package.json',
  ),
 }
+
+-- require'lspconfig'.volar.setup{}
+require'lspconfig'.vuels.setup{
+  on_attach = on_attach,
+}

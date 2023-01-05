@@ -32,14 +32,12 @@ return packer.startup(function(use)
 
 	use("nvim-lua/plenary.nvim") -- lua functions that many plugins use
 
-  use 'folke/tokyonight.nvim'
+  use 'xiyaowong/nvim-transparent'
 
-  -- use {
-  --   'declancm/cinnamon.nvim',
-  --   config = function()
-  --     require'cinnamon'.setup()
-  --   end
-  -- }
+  use({
+    'rose-pine/neovim',
+    as = 'rose-pine',
+  })
 
   use("nvim-telescope/telescope-live-grep-args.nvim")
 
@@ -127,7 +125,7 @@ return packer.startup(function(use)
 
   use {
     'ray-x/lsp_signature.nvim',
-    config = function() 
+    config = function()
       require'keith.plugins.lsp_signature'
     end
   }
@@ -217,19 +215,17 @@ return packer.startup(function(use)
     end
   })
 
+  use 'RRethy/nvim-base16'
+
   use({
     'nvim-lualine/lualine.nvim',
-    require = {
-      'kyazdani42/nvim-web-devicons',
-      opt = true,
-    },
-    config = function()
-      require'lualine'.setup({
-        options = {
-          theme = 'tokyonight'
-        }
-      })
-    end
+    requires = {
+      { 'RRethy/nvim-base16', opt = false },
+      {
+        'kyazdani42/nvim-web-devicons',
+        opt = true,
+      }
+    }
   })
 
   use({
@@ -247,15 +243,35 @@ return packer.startup(function(use)
     end
   }
 
-  if packer_bootstrap then
-    require('packer').sync()
-  end
-
   use {
     "nvim-telescope/telescope-frecency.nvim",
     requires = {"kkharji/sqlite.lua"}
   }
 
   use { "nvim-telescope/telescope-file-browser.nvim" }
+
+  use {
+    'fatih/vim-go',
+    run = ':GoUpdateBinaries'
+  }
+
+  use 'mbbill/undotree'
+
+  use {
+    "folke/zen-mode.nvim",
+    config = function()
+      require("zen-mode").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  }
+
+
+  if packer_bootstrap then
+    require('packer').sync()
+  end
+
 
 end)

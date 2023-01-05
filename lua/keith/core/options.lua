@@ -1,5 +1,7 @@
 local opt = vim.opt
 
+vim.cmd.colorscheme("rose-pine")
+
 opt.relativenumber = true
 opt.number = true
 
