@@ -58,6 +58,21 @@ require('lspconfig')['tsserver'].setup{
 require('lspconfig')['gopls'].setup{
   on_attach = on_attach,
   flags = lsp_flags,
+  settings = {
+    gopls = {
+      codelenses = {
+        generate = true,
+        gc_details = false,
+        test = true,
+        tidy = true,
+      },
+      analyses = {
+        unusedparams = true,
+        unusedvariable = true,
+      },
+      staticcheck = true,
+    }
+  }
 }
 
 require('lspconfig')['sumneko_lua'].setup{

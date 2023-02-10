@@ -131,14 +131,6 @@ return packer.startup(function(use)
   }
 
   use {
-    'ray-x/go.nvim',
-    ft = 'go',
-    config = function()
-      require'keith.plugins.go'
-    end
-  }
-
-  use {
     'klen/nvim-test',
     cmd = {
       "TestSuite",
@@ -175,6 +167,15 @@ return packer.startup(function(use)
     end
 
   }
+
+  use {
+    'ray-x/go.nvim',
+    ft = 'go',
+    config = function()
+      require'keith.plugins.go'
+    end
+  }
+
 
   use {
     'neovim/nvim-lspconfig',
@@ -249,11 +250,6 @@ return packer.startup(function(use)
   }
 
   use { "nvim-telescope/telescope-file-browser.nvim" }
-
-  use {
-    'fatih/vim-go',
-    run = ':GoUpdateBinaries'
-  }
 
   use 'mbbill/undotree'
 
