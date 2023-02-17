@@ -168,6 +168,8 @@ return packer.startup(function(use)
 
   }
 
+  use 'ray-x/guihua.lua'
+
   use {
     'ray-x/go.nvim',
     ft = 'go',
