@@ -74,3 +74,6 @@ keymap.set("n", "<C-Up>", function() require'smart-splits'.resize_up() end, mapo
 keymap.set("n", "<C-Down>", function() require'smart-splits'.resize_down() end, mapopts)
 keymap.set("n", "<C-Left>", function() require'smart-splits'.resize_left() end, mapopts)
 keymap.set("n", "<C-Right>", function() require'smart-splits'.resize_right() end, mapopts)
+
+-- -- Lsp Signature
+keymap.set("i", "<C-t>", function() require'lsp_signature'.toggle_float_win() end, mapopts)

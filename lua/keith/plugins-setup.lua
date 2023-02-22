@@ -273,6 +273,7 @@ return packer.startup(function(use)
     ft = { "markdown" },
   }
 
+  use 'dense-analysis/ale'
 
   if packer_bootstrap then
     require('packer').sync()
