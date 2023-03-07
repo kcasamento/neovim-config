@@ -46,6 +46,22 @@ keymap.set("n", "<leader>fg",
   mapopts
 )
 
+keymap.set("v", "<leader>fg",
+  function()
+    vim.cmd('noau normal! "vy"')
+    local text = vim.fn.getreg('v')
+    vim.fn.setreg('v', {})
+
+    text = string.gsub(text, "\n", "")
+    local t = ''
+    if #text > 0 then
+      t = text
+    end
+    require'telescope'.extensions.live_grep_args.live_grep_args({default_text=t})
+  end,
+  mapopts
+)
+
 keymap.set("n", "<leader>fw", ":Telescope current_buffer_fuzzy_find<cr>", mapopts)
 
 keymap.set("n", "<leader>fb", function() require'telescope.builtin'.buffers() end, mapopts)
@@ -77,3 +93,6 @@ keymap.set("n", "<C-Right>", function() require'smart-splits'.resize_right() end
 
 -- -- Lsp Signature
 keymap.set("i", "<C-t>", function() require'lsp_signature'.toggle_float_win() end, mapopts)
+
+-- -- Docker
+keymap.set("n", "<leader>dt", ":DockerToolsToggle<cr>", mapopts)

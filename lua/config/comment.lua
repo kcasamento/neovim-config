@@ -1,5 +1,9 @@
+local M = {}
+
+function M.setup()
 local status_ok, Comment = pcall(require, "Comment")
 if not status_ok then return end
+
 local utils = require "Comment.utils"
 Comment.setup({
   pre_hook = function(ctx)
@@ -16,3 +20,8 @@ Comment.setup({
     }
   end,
 })
+
+end
+
+return M
+
