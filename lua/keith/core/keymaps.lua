@@ -16,7 +16,7 @@ keymap.set("n", "n", "nzzzv", mapopts)
 keymap.set("n", "N", "Nzzzv", mapopts)
 
 -- Comment
-keymap.set("n", "<leader>/", function() require'Comment.api'.toggle.linewise.current() end, mapopts)
+keymap.set("n", "<leader>/", function() require 'Comment.api'.toggle.linewise.current() end, mapopts)
 keymap.set("v", "<leader>/", "<esc><cmd>lua require'Comment.api'.toggle.linewise(vim.fn.visualmode())<cr>", mapopts)
 
 -- Bufdelete
@@ -35,13 +35,13 @@ keymap.set("n", "<leader>nh", ":nohl<CR>", mapopts)
 -- Telescope
 keymap.set("n", "<leader>ff",
   function()
-    require'telescope.builtin'.find_files()
+    require 'telescope.builtin'.find_files()
   end,
   mapopts
 )
 keymap.set("n", "<leader>fg",
   function()
-    require'telescope'.extensions.live_grep_args.live_grep_args()
+    require 'telescope'.extensions.live_grep_args.live_grep_args()
   end,
   mapopts
 )
@@ -57,42 +57,45 @@ keymap.set("v", "<leader>fg",
     if #text > 0 then
       t = text
     end
-    require'telescope'.extensions.live_grep_args.live_grep_args({default_text=t})
+    require 'telescope'.extensions.live_grep_args.live_grep_args({ default_text = t })
   end,
   mapopts
 )
 
 keymap.set("n", "<leader>fw", ":Telescope current_buffer_fuzzy_find<cr>", mapopts)
 
-keymap.set("n", "<leader>fb", function() require'telescope.builtin'.buffers() end, mapopts)
-keymap.set("n", "<leader>gs", function() require'telescope.builtin'.git_status() end, mapopts)
-keymap.set("n", "<leader>gb", function() require'telescope.builtin'.git_branches() end, mapopts)
-keymap.set("n", "<leader>gc", function() require'telescope.builtin'.git_commits() end, mapopts)
+keymap.set("n", "<leader>fb", function() require 'telescope.builtin'.buffers() end, mapopts)
+keymap.set("n", "<leader>gs", function() require 'telescope.builtin'.git_status() end, mapopts)
+keymap.set("n", "<leader>gb", function() require 'telescope.builtin'.git_branches() end, mapopts)
+keymap.set("n", "<leader>gc", function() require 'telescope.builtin'.git_commits() end, mapopts)
+keymap.set("n", "<leader>fr", ":Telescope resume<cr>", mapopts)
+keymap.set("v", "<leader>fr", ":Telescope resume<cr>", mapopts)
 
 -- -- Tmux
 keymap.set("n", "<leader>ts", ":Telescope tmux sessions initial_mode=normal<cr>", mapopts)
 keymap.set("n", "<leader>tw", ":Telescope tmux windows initial_mode=normal<cr>", mapopts)
 
 -- -- Frecency
-keymap.set("n", "<leader><leader>", "<Cmd>lua require('telescope').extensions.frecency.frecency({ workspace = 'CWD', initial_mode='normal' })<CR>", mapopts)
+keymap.set("n", "<leader><leader>",
+  "<Cmd>lua require('telescope').extensions.frecency.frecency({ workspace = 'CWD', initial_mode='normal' })<CR>", mapopts)
 
 
 keymap.set("n", "<leader>fe", ":Telescope file_browser initial_mode=normal<cr>", mapopts)
 
 -- Smart Splits
-keymap.set("n", "<C-h>", function() require'smart-splits'.move_cursor_left() end, mapopts)
-keymap.set("n", "<C-j>", function() require'smart-splits'.move_cursor_down() end, mapopts)
-keymap.set("n", "<C-k>", function() require'smart-splits'.move_cursor_up() end, mapopts)
-keymap.set("n", "<C-l>", function() require'smart-splits'.move_cursor_right() end, mapopts)
+keymap.set("n", "<C-h>", function() require 'smart-splits'.move_cursor_left() end, mapopts)
+keymap.set("n", "<C-j>", function() require 'smart-splits'.move_cursor_down() end, mapopts)
+keymap.set("n", "<C-k>", function() require 'smart-splits'.move_cursor_up() end, mapopts)
+keymap.set("n", "<C-l>", function() require 'smart-splits'.move_cursor_right() end, mapopts)
 
 
-keymap.set("n", "<C-Up>", function() require'smart-splits'.resize_up() end, mapopts)
-keymap.set("n", "<C-Down>", function() require'smart-splits'.resize_down() end, mapopts)
-keymap.set("n", "<C-Left>", function() require'smart-splits'.resize_left() end, mapopts)
-keymap.set("n", "<C-Right>", function() require'smart-splits'.resize_right() end, mapopts)
+keymap.set("n", "<C-Up>", function() require 'smart-splits'.resize_up() end, mapopts)
+keymap.set("n", "<C-Down>", function() require 'smart-splits'.resize_down() end, mapopts)
+keymap.set("n", "<C-Left>", function() require 'smart-splits'.resize_left() end, mapopts)
+keymap.set("n", "<C-Right>", function() require 'smart-splits'.resize_right() end, mapopts)
 
 -- -- Lsp Signature
-keymap.set("i", "<C-t>", function() require'lsp_signature'.toggle_float_win() end, mapopts)
+keymap.set("i", "<C-t>", function() require 'lsp_signature'.toggle_float_win() end, mapopts)
 
 -- -- Docker
 keymap.set("n", "<leader>dt", ":DockerToolsToggle<cr>", mapopts)
