@@ -6,12 +6,10 @@ function M.setup()
 
   local actions = require 'telescope.actions'
   local action_set = require('telescope.actions.set')
-
-  telescope.load_extension('live_grep_args')
+  local lga_actions = require("telescope-live-grep-args.actions")
 
   telescope.setup({
     defaults = {
-
       prompt_prefix = "> ",
       path_display = { "truncate" },
       sorting_strategy = "ascending",
@@ -28,7 +26,7 @@ function M.setup()
         height = 0.80,
         preview_cutoff = 120,
       },
-
+      file_ignore_patterns = { '^vendor/', '^node_modules/' },
       mappings = {
         i = {
           ["<C-n>"] = actions.cycle_history_next,
@@ -38,7 +36,6 @@ function M.setup()
         },
         n = { ["q"] = actions.close },
       },
-
     },
     pickers = {
       find_files = {
@@ -53,21 +50,33 @@ function M.setup()
       },
     },
     extensions = {
-      file_browsers = {
-        hijack_netrw = true,
-        initial_mode = 'normal',
+      live_grep_args = {
+        auto_quoting = false,
         mappings = {
           ["i"] = {
-
+            ["<C-k>"] = lga_actions.quote_prompt(),
+            ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+            ["<C-u>"] = lga_actions.quote_prompt({ postfix = " -u" }),
           },
           ["n"] = {
 
           },
         }
       },
+      file_browsers = {
+        hijack_netrw = true,
+        initial_mode = 'normal',
+        mappings = {
+          ["i"] = {
+          },
+          ["n"] = {
+          },
+        }
+      },
     }
   })
 
+  telescope.load_extension('live_grep_args')
   telescope.load_extension('tmux')
   telescope.load_extension('frecency')
   telescope.load_extension('file_browser')

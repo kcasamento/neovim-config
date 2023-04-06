@@ -99,3 +99,8 @@ keymap.set("i", "<C-t>", function() require 'lsp_signature'.toggle_float_win() e
 
 -- -- Docker
 keymap.set("n", "<leader>dt", ":DockerToolsToggle<cr>", mapopts)
+
+-- -- Fugitive
+keymap.set("n", "<leader>gg", ":Gvdiffsplit!<cr>", mapopts)
+keymap.set("n", "<leader>gj", ":diffget //3<cr>", mapopts)
+keymap.set("n", "<leader>gf", ":diffget //2<cr>", mapopts)
