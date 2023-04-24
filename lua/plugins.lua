@@ -276,6 +276,12 @@ function M.setup()
 
     use 'kkvh/vim-docker-tools'
 
+    use 'Shougo/deoplete.nvim'
+
+    use 'zchee/deoplete-clang'
+
+    use 'dense-analysis/ale'
+
     if packer_bootstrap then
       require('packer').sync()
     end
