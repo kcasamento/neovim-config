@@ -177,7 +177,6 @@ function M.setup()
       end
     }
 
-
     use {
       'neovim/nvim-lspconfig',
       config = function()
@@ -271,8 +270,6 @@ function M.setup()
       setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
       ft = { "markdown" },
     }
-
-    use 'dense-analysis/ale'
 
     use 'kkvh/vim-docker-tools'
 
