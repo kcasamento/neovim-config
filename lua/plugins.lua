@@ -46,15 +46,13 @@ function M.setup()
 
     use {
       'nvim-neo-tree/neo-tree.nvim',
-      barnch = 'v2.x',
-      module = 'neo-tree',
-      cmd = 'Neotree',
+      branch = 'v2.x',
       requires = {
         'nvim-lua/plenary.nvim',
         'kyazdani42/nvim-web-devicons',
-        { 'MunifTanjim/nui.nvim', module = 'nui' },
+        'MunifTanjim/nui.nvim',
       },
-      setup = function() vim.g.neo_tree_legacy_commands = true end,
+      -- setup = function() vim.g.neo_tree_legacy_commands = true end,
       config = function() require 'config.neo-tree'.setup() end,
     }
 
