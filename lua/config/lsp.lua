@@ -1,3 +1,9 @@
+-- currently this file is not used/loaded
+-- as the navigator plugin has all lsp config
+-- if the navigator plugin is removed, make
+-- sure to load this file again for lsp configs to
+-- load properly.
+--
 local M = {}
 
 function M.setup()
@@ -114,10 +120,12 @@ function M.setup()
     ),
   }
 
-  -- require'lspconfig'.volar.setup{}
+  require 'lspconfig'.volar.setup {}
   lspconfig.vuels.setup {
     on_attach = on_attach,
   }
+  require 'lspconfig'.terraformls.setup {}
+  require 'lspconfig'.tflint.setup {}
 end
 
 return M

@@ -52,7 +52,7 @@ function M.setup()
         'kyazdani42/nvim-web-devicons',
         'MunifTanjim/nui.nvim',
       },
-      -- setup = function() vim.g.neo_tree_legacy_commands = true end,
+      setup = function() vim.g.neo_tree_legacy_commands = false end,
       config = function() require 'config.neo-tree'.setup() end,
     }
 
@@ -81,12 +81,6 @@ function M.setup()
     use {
       'mrjones2014/smart-splits.nvim',
       config = function() require 'config.smart-splits'.setup() end,
-    }
-
-    use {
-      'jose-elias-alvarez/null-ls.nvim',
-      event = "BufEnter",
-      -- config = function() require'config.null-ls'.setup() end
     }
 
     use {
@@ -120,9 +114,6 @@ function M.setup()
       'max397574/better-escape.nvim',
       event = 'InsertCharPre',
     }
-
-    use('nathom/filetype.nvim')
-
 
     use {
       'ray-x/lsp_signature.nvim',
@@ -175,11 +166,24 @@ function M.setup()
       end
     }
 
+    use({
+      'ray-x/navigator.lua',
+      requires = {
+        { 'ray-x/guihua.lua',     run = 'cd lua/fzy && make' },
+        { 'neovim/nvim-lspconfig' },
+      },
+      config = function()
+        require 'config.navigator'.setup()
+      end
+    })
+
     use {
       'neovim/nvim-lspconfig',
-      config = function()
-        require 'config.lsp'.setup()
-      end
+      -- Currently trying out Navigator
+      -- which has all the lsp configs
+      -- config = function()
+      --   require 'config.lsp'.setup()
+      -- end
     }
 
     use {
@@ -276,6 +280,8 @@ function M.setup()
     use 'zchee/deoplete-clang'
 
     use 'dense-analysis/ale'
+
+    use 'hashivim/vim-terraform'
 
     if packer_bootstrap then
       require('packer').sync()

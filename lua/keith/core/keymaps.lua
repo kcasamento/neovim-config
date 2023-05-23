@@ -15,6 +15,9 @@ keymap.set("n", "<C-u>", "<C-u>zz", mapopts)
 keymap.set("n", "n", "nzzzv", mapopts)
 keymap.set("n", "N", "Nzzzv", mapopts)
 
+-- LSP
+keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", mapopts)
+
 -- Comment
 keymap.set("n", "<leader>/", function() require 'Comment.api'.toggle.linewise.current() end, mapopts)
 keymap.set("v", "<leader>/", "<esc><cmd>lua require'Comment.api'.toggle.linewise(vim.fn.visualmode())<cr>", mapopts)
