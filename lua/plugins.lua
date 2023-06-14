@@ -169,8 +169,9 @@ function M.setup()
     use({
       'ray-x/navigator.lua',
       requires = {
-        { 'ray-x/guihua.lua',     run = 'cd lua/fzy && make' },
+        { 'ray-x/guihua.lua',             run = 'cd lua/fzy && make' },
         { 'neovim/nvim-lspconfig' },
+        { 'nvim-telescope/telescope.nvim' },
       },
       config = function()
         require 'config.navigator'.setup()
@@ -266,12 +267,16 @@ function M.setup()
       end
     }
 
-    use {
+    -- install without yarn or npm
+    use({
       "iamcco/markdown-preview.nvim",
-      run = "cd app && npm install",
+      run = function() vim.fn["mkdp#util#install"]() end,
       setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
       ft = { "markdown" },
-    }
+    })
+
+    -- use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install",
+    --   setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
 
     use 'kkvh/vim-docker-tools'
 

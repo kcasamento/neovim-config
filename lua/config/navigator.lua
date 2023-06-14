@@ -34,7 +34,14 @@ function M.setup()
         desc = 'workspace_symbol_live',
       },
       { key = '<c-]>', func = require('navigator.definition').definition, desc = 'definition' },
-      { key = 'gd',    func = require('navigator.definition').definition, desc = 'definition' },
+      {
+        key = 'gd',
+        func = function()
+          require('telescope.builtin').lsp_definitions({ initial_mode = 'normal' })
+        end,
+        desc = 'definition'
+      },
+      -- { key = 'gd',    func = require('navigator.definition').definition, desc = 'definition' },
       { key = 'gD',    func = vim.lsp.buf.declaration,                    desc = 'declaration' },
 
       {
@@ -71,8 +78,21 @@ function M.setup()
       { key = '<Space>rn',  func = require('navigator.rename').rename, desc = 'rename' },
       { key = '<Leader>gi', func = vim.lsp.buf.incoming_calls,         desc = 'incoming_calls' },
       { key = '<Leader>go', func = vim.lsp.buf.outgoing_calls,         desc = 'outgoing_calls' },
-      { key = 'gi',         func = vim.lsp.buf.implementation,         desc = 'implementation' },
-      { key = '<Space>D',   func = vim.lsp.buf.type_definition,        desc = 'type_definition' },
+      {
+        key = 'gi',
+        func = function()
+          require 'telescope.builtin'.lsp_implementations({ initial_mode = 'normal' })
+        end,
+        desc = 'implementation'
+      },
+      { key = '<Space>D', func = vim.lsp.buf.type_definition,                     desc = 'type_definition' },
+      {
+        key = 'sd',
+        func = function()
+          require('telescope.builtin').diagnostics({ initial_mode = 'normal' })
+        end,
+        desc = '[S]how [D]iagnostics'
+      },
       {
         key = 'gL',
         func = require('navigator.diagnostics').show_diagnostics,
@@ -89,6 +109,11 @@ function M.setup()
         desc = 'toggle_diagnostics',
       },
       {
+        key = 'of',
+        func = vim.diagnostic.open_float,
+        desc = 'open error in floating window',
+      },
+      {
         key = ']d',
         func = vim.diagnostic.goto_next,
         desc = 'next diagnostics',
@@ -103,7 +128,7 @@ function M.setup()
         func = vim.diagnostic.set_loclist,
         desc = 'diagnostics set loclist',
       },
-      { key = ']r', func = require('navigator.treesitter').goto_next_usage, desc = 'goto_next_usage' },
+      { key = ']r',       func = require('navigator.treesitter').goto_next_usage, desc = 'goto_next_usage' },
       {
         key = '[r',
         func = require('navigator.treesitter').goto_previous_usage,
