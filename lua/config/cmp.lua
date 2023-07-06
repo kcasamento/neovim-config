@@ -24,7 +24,7 @@ function M.setup()
     mapping = cmp.mapping.preset.insert({
       ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
       ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
-      ["<C-d>"] = cmp.mapping.scroll_docs( -4),
+      ["<C-d>"] = cmp.mapping.scroll_docs(-4),
       ["<C-f>"] = cmp.mapping.scroll_docs(4),
       ["<C-e>"] = cmp.mapping.abort(),
       ["<c-y>"] = cmp.mapping(
@@ -77,6 +77,7 @@ function M.setup()
       -- end, { 'i', 's' }),
     }),
     sources = {
+      { name = 'copilot' },
       { name = 'nvim_lsp' },
       { name = 'luasnip' },
     },

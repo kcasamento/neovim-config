@@ -26,8 +26,8 @@ function M.setup()
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     vim.keymap.set('n', '<leader>ld', vim.diagnostic.open_float, bufopts)
-    vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, bufopts)
-    vim.keymap.set('v', '<leader>la', vim.lsp.buf.code_action, bufopts)
+    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
+    vim.keymap.set('v', '<leader>ca', vim.lsp.buf.code_action, bufopts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)

@@ -71,12 +71,12 @@ function M.setup()
       config = function() require('config.aerial').setup() end
     }
 
-    use {
-      'akinsho/bufferline.nvim',
-      tag = "v3.*",
-      requires = 'kyazdani42/nvim-web-devicons',
-      config = function() require 'config.bufferline'.setup() end
-    }
+    -- use {
+    --   'akinsho/bufferline.nvim',
+    --   tag = "v3.*",
+    --   requires = 'kyazdani42/nvim-web-devicons',
+    --   config = function() require 'config.bufferline'.setup() end
+    -- }
 
     use {
       'mrjones2014/smart-splits.nvim',
@@ -132,6 +132,9 @@ function M.setup()
         "TestVisit",
         "TestEdit",
       },
+      config = function()
+        require 'nvim-test'.setup {}
+      end
     }
 
     use {
@@ -166,25 +169,25 @@ function M.setup()
       end
     }
 
-    use({
-      'ray-x/navigator.lua',
-      requires = {
-        { 'ray-x/guihua.lua',             run = 'cd lua/fzy && make' },
-        { 'neovim/nvim-lspconfig' },
-        { 'nvim-telescope/telescope.nvim' },
-      },
-      config = function()
-        require 'config.navigator'.setup()
-      end
-    })
+    -- use({
+    --   'ray-x/navigator.lua',
+    --   requires = {
+    --     { 'ray-x/guihua.lua',             run = 'cd lua/fzy && make' },
+    --     { 'neovim/nvim-lspconfig' },
+    --     { 'nvim-telescope/telescope.nvim' },
+    --   },
+    --   config = function()
+    --     require 'config.navigator'.setup()
+    --   end
+    -- })
 
     use {
       'neovim/nvim-lspconfig',
       -- Currently trying out Navigator
       -- which has all the lsp configs
-      -- config = function()
-      --   require 'config.lsp'.setup()
-      -- end
+      config = function()
+        require 'config.lsp'.setup()
+      end
     }
 
     use {
@@ -287,6 +290,42 @@ function M.setup()
     use 'dense-analysis/ale'
 
     use 'hashivim/vim-terraform'
+
+    use {
+      "zbirenbaum/copilot.lua",
+      cmd = "Copilot",
+      event = "InsertEnter",
+      config = function()
+        require("copilot").setup({
+          panel = { enabled = false },
+          suggestion = { enabled = false, auto_trigger = true },
+        })
+      end,
+    }
+
+    use {
+      "zbirenbaum/copilot-cmp",
+      after = { "copilot.lua" },
+      config = function()
+        require("copilot_cmp").setup()
+      end
+    }
+
+    use {
+      "ThePrimeagen/harpoon",
+      config = function()
+        require("harpoon").setup()
+      end
+    }
+
+    use {
+      "folke/which-key.nvim",
+      config = function()
+        vim.o.timeout = true
+        vim.o.timeoutlen = 300
+        require("which-key").setup()
+      end
+    }
 
     if packer_bootstrap then
       require('packer').sync()
