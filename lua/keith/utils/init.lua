@@ -11,5 +11,4 @@ function M.get_icon(kind)
   return M[icon_pack] and M[icon_pack][kind] or ""
 end
 
-
 return M;

@@ -20,8 +20,15 @@ keymap.set("n", "N", "Nzzzv", mapopts)
 keymap.set("n", "]q", "<cmd>cnext<cr>", mapopts)
 keymap.set("n", "[q", "<cmd>cprev<cr>", mapopts)
 
+-- Better Experience
+keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+
+-- Word Wrap
+keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
 -- LSP
-keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", mapopts)
+-- keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", mapopts)
 
 -- Comment
 keymap.set("n", "<leader>/", function() require 'Comment.api'.toggle.linewise.current() end, mapopts)
@@ -41,6 +48,10 @@ keymap.set("n", "<leader>nh", ":nohl<CR>", mapopts)
 
 
 -- Telescope
+keymap.set("n", "<leader><Space>", function()
+  require 'telescope.builtin'.buffers({ initial_mode = 'normal' })
+end, { noremap = true, silent = true, desc = "List Buffers" })
+
 wk.register({
   f = {
     name = "Telescope",
@@ -51,12 +62,6 @@ wk.register({
       end,
       "Search Live Grep",
     },
-    b = {
-      function()
-        require 'telescope.builtin'.buffers({ initial_mode = 'normal' })
-      end,
-      "List Buffers",
-    },
     r = {
       ":Telescope resume<cr>",
       "Resume last query",
@@ -66,20 +71,34 @@ wk.register({
       "Current Buffer Fuzzy Find",
     }
   },
-  g = {
-    s = {
-      function() require 'telescope.builtin'.git_status() end,
-      "Git Status",
+  -- g = {
+  --   name = "Telescope Git",
+  --   s = {
+  --     function() require 'telescope.builtin'.git_status() end,
+  --     "Git Status",
+  --   },
+  --   b = {
+  --     function() require 'telescope.builtin'.git_branches() end,
+  --     "Git Branches",
+  --   },
+  --   c = {
+  --     function() require 'telescope.builtin'.git_commits() end,
+  --     "Git Commits",
+  --   }
+  -- },
+  s = {
+    name = "Telescope Search",
+    h = {
+      function() require 'telescope.builtin'.help_tags() end,
+      "Search Help",
     },
-    b = {
-      function() require 'telescope.builtin'.git_branches() end,
-      "Git Branches",
-    },
-    c = {
-      function() require 'telescope.builtin'.git_commits() end,
-      "Git Commits",
+    d = {
+      function()
+        require('telescope.builtin').diagnostics({ initial_mode = 'normal' })
+      end,
+      "Show diagnostics",
     }
-  }
+  },
 }, {
   prefix = "<leader>",
   mode = "n",
@@ -118,16 +137,14 @@ wk.register({
 keymap.set("n", "<leader>ts", ":Telescope tmux sessions initial_mode=normal<cr>", mapopts)
 keymap.set("n", "<leader>tw", ":Telescope tmux windows initial_mode=normal<cr>", mapopts)
 
--- -- Frecency
-keymap.set("n", "<leader><leader>",
-  "<Cmd>lua require('telescope').extensions.frecency.frecency({ workspace = 'CWD', initial_mode='normal' })<CR>", mapopts)
-
 -- Smart Splits
 keymap.set("n", "<C-h>", function() require 'smart-splits'.move_cursor_left() end, mapopts)
 keymap.set("n", "<C-j>", function() require 'smart-splits'.move_cursor_down() end, mapopts)
 keymap.set("n", "<C-k>", function() require 'smart-splits'.move_cursor_up() end, mapopts)
 keymap.set("n", "<C-l>", function() require 'smart-splits'.move_cursor_right() end, mapopts)
 
+keymap.set("n", "<C-\\>", ":vsplit", mapopts)
+keymap.set("n", "<C-->>", ":split", mapopts)
 
 keymap.set("n", "<C-Up>", function() require 'smart-splits'.resize_up() end, mapopts)
 keymap.set("n", "<C-Down>", function() require 'smart-splits'.resize_down() end, mapopts)
@@ -174,34 +191,28 @@ wk.register({
     end,
     "Go to next diagnostic",
   },
-  ["sd"] = {
-    function()
-      require('telescope.builtin').diagnostics({ initial_mode = 'normal' })
-    end,
-    "Show diagnostics",
-  },
 
-  g = {
-    name = "LSP",
-    d = {
-      function()
-        require('telescope.builtin').lsp_definitions({ initial_mode = 'normal' })
-      end,
-      "Show definitions"
-    },
-    t = {
-      function()
-        vim.lsp.buf.type_defintion()
-      end,
-      "Show type definition",
-    },
-    i = {
-      function()
-        require 'telescope.builtin'.lsp_implementations({ initial_mode = 'normal' })
-      end,
-      "Show implementations"
-    },
-  }
+  -- g = {
+  --   name = "LSP",
+  --   d = {
+  --     function()
+  --       require('telescope.builtin').lsp_definitions({ initial_mode = 'normal' })
+  --     end,
+  --     "Show definitions"
+  --   },
+  --   t = {
+  --     function()
+  --       vim.lsp.buf.type_defintion()
+  --     end,
+  --     "Show type definition",
+  --   },
+  --   i = {
+  --     function()
+  --       require 'telescope.builtin'.lsp_implementations({ initial_mode = 'normal' })
+  --     end,
+  --     "Show implementations"
+  --   },
+  -- }
 })
 
 -- -- Harpoon

@@ -7,6 +7,8 @@
 local M = {}
 
 function M.setup()
+  require("neodev").setup({})
+
   local status_ok, lspconfig = pcall(require, "lspconfig")
   if not status_ok then return end
 
@@ -18,6 +20,13 @@ function M.setup()
   -- Use an on_attach function to only map the following keys
   -- after the language server attaches to the current buffer
   local on_attach = function(client, bufnr)
+    local nmap = function(keys, func, desc)
+      if desc then
+        desc = 'LSP: ' .. desc
+      end
+
+      vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc, noremap = true })
+    end
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -25,13 +34,16 @@ function M.setup()
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    vim.keymap.set('n', '<leader>ld', vim.diagnostic.open_float, bufopts)
-    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-    vim.keymap.set('v', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+    nmap('<leader>ld', vim.diagnostic.open_float, "Diagnostic Open Float")
+    nmap('<leader>ca', vim.lsp.buf.code_action, "Code Action")
+    nmap('K', vim.lsp.buf.hover, "Hover")
+    nmap('gd', function() require('telescope.builtin').lsp_definitions({ initial_mode = 'normal' }) end,
+      "Go to Definition")
+    nmap('gi', function() require 'telescope.builtin'.lsp_implementations({ initial_mode = 'normal' }) end,
+      "Go to Implementations")
+    nmap('gr', function() require('telescope.builtin').lsp_references() end, "Go to References")
+
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
     vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
     vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
     vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
@@ -40,7 +52,6 @@ function M.setup()
     end, bufopts)
     vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
   end
 

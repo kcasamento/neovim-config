@@ -16,12 +16,12 @@ function M.setup()
 
   -- autocommand that reloads neovim and installs/updates/removes plugins
   -- when file is saved
-  vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-  ]])
+  -- vim.cmd([[
+  -- augroup packer_user_config
+  --   autocmd!
+  --   autocmd BufWritePost plugins.lua source <afile> | PackerSync
+  -- augroup end
+  -- ]])
 
   -- import packer safely
   local status, packer = pcall(require, "packer")
@@ -71,12 +71,6 @@ function M.setup()
       config = function() require('config.aerial').setup() end
     }
 
-    -- use {
-    --   'akinsho/bufferline.nvim',
-    --   tag = "v3.*",
-    --   requires = 'kyazdani42/nvim-web-devicons',
-    --   config = function() require 'config.bufferline'.setup() end
-    -- }
 
     use {
       'mrjones2014/smart-splits.nvim',
@@ -169,17 +163,7 @@ function M.setup()
       end
     }
 
-    -- use({
-    --   'ray-x/navigator.lua',
-    --   requires = {
-    --     { 'ray-x/guihua.lua',             run = 'cd lua/fzy && make' },
-    --     { 'neovim/nvim-lspconfig' },
-    --     { 'nvim-telescope/telescope.nvim' },
-    --   },
-    --   config = function()
-    --     require 'config.navigator'.setup()
-    --   end
-    -- })
+    use 'folke/neodev.nvim'
 
     use {
       'neovim/nvim-lspconfig',
@@ -232,7 +216,10 @@ function M.setup()
           'kyazdani42/nvim-web-devicons',
           opt = true,
         }
-      }
+      },
+      config = function()
+        require 'config.lualine'.setup()
+      end
     })
 
     use({
@@ -278,9 +265,6 @@ function M.setup()
       ft = { "markdown" },
     })
 
-    -- use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install",
-    --   setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
-
     use 'kkvh/vim-docker-tools'
 
     use 'Shougo/deoplete.nvim'
@@ -314,7 +298,14 @@ function M.setup()
     use {
       "ThePrimeagen/harpoon",
       config = function()
-        require("harpoon").setup()
+        require("config.harpoon").setup()
+      end
+    }
+
+    use {
+      "lukas-reineke/indent-blankline.nvim",
+      config = function()
+        require("config.blankline").setup()
       end
     }
 
@@ -323,7 +314,7 @@ function M.setup()
       config = function()
         vim.o.timeout = true
         vim.o.timeoutlen = 300
-        require("which-key").setup()
+        require("config.which-key").setup()
       end
     }
 

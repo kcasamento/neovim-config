@@ -25,6 +25,12 @@ opt.foldexpr = 'nvim_treesitter#foldexpr()'
 opt.foldmethod = 'expr'
 opt.foldlevel = 99
 
+vim.o.updatetime = 250
+vim.o.timeout = true
+vim.o.timeoutlen = 300
+
+vim.o.completeopt = 'menuone,noselect'
+vim.o.breakindent = true
 
 vim.g.icons_enabled = true
 vim.cmd([[silent! autocmd! filetypedetect BufRead,BufNewFile *.tf]])
