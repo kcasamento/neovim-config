@@ -77,9 +77,9 @@ function M.setup()
       -- end, { 'i', 's' }),
     }),
     sources = {
-      { name = 'copilot' },
-      { name = 'nvim_lsp' },
-      { name = 'luasnip' },
+      { name = 'nvim_lsp', group_index = 1 },
+      { name = 'copilot',  group_index = 1 },
+      { name = 'luasnip',  group_index = 2 },
     },
     enabled = function()
       -- disable completion in comments

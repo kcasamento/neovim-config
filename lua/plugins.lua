@@ -35,12 +35,14 @@ function M.setup()
 
     use("nvim-lua/plenary.nvim") -- lua functions that many plugins use
 
-    use 'xiyaowong/nvim-transparent'
+    -- use 'xiyaowong/nvim-transparent'
 
     use({
       'rose-pine/neovim',
       as = 'rose-pine',
     })
+
+    use 'navarasu/onedark.nvim'
 
     use("nvim-telescope/telescope-live-grep-args.nvim")
 
@@ -163,7 +165,12 @@ function M.setup()
       end
     }
 
-    use 'folke/neodev.nvim'
+    use {
+      'folke/neodev.nvim',
+      config = function()
+        require 'config.neodev'.setup()
+      end
+    }
 
     use {
       'neovim/nvim-lspconfig',
@@ -282,7 +289,7 @@ function M.setup()
       config = function()
         require("copilot").setup({
           panel = { enabled = false },
-          suggestion = { enabled = false, auto_trigger = true },
+          suggestion = { enabled = false },
         })
       end,
     }
@@ -315,6 +322,23 @@ function M.setup()
         vim.o.timeout = true
         vim.o.timeoutlen = 300
         require("config.which-key").setup()
+      end
+    }
+
+    use 'mfussenegger/nvim-dap'
+
+    use {
+      'leoluz/nvim-dap-go',
+      config = function()
+        require("config.go-dap").setup()
+      end
+    }
+
+    use {
+      "rcarriga/nvim-dap-ui",
+      requires = { "mfussenegger/nvim-dap" },
+      config = function()
+        require("config.dap-ui").setup()
       end
     }
 

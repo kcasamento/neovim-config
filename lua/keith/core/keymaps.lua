@@ -235,3 +235,20 @@ wk.register({
 }, {
   prefix = "<leader>",
 })
+
+
+-- -- DAP
+wk.register({
+  d = {
+    name = "Debug",
+    b = { function() require 'dap'.toggle_breakpoint() end, "Toggle Breakpoint" },
+    o = { function() require 'dap'.step_over() end, "Step Over" },
+    i = { function() require 'dap'.step_into() end, "Step Into" },
+    c = { function() require 'dap'.continue() end, "Continue" },
+    h = { function() require('dap.ui.widgets').hover() end, "Hover" },
+    t = { function() require('dap-go').debug_test() end, "Debug Test" },
+    u = { function() require('dapui').toggle() end, "UI Toggle" },
+  }
+}, {
+  prefix = "<leader>",
+})
