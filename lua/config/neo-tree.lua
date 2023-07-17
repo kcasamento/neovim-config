@@ -5,9 +5,19 @@ function M.setup()
   if not status_ok then return end
 
   local get_icon = require 'keith.utils'.get_icon
+  --
+  -- If you want icons for diagnostic errors, you'll need to define them somewhere:
+  vim.fn.sign_define("DiagnosticSignError",
+    { text = " ", texthl = "DiagnosticSignError" })
+  vim.fn.sign_define("DiagnosticSignWarn",
+    { text = " ", texthl = "DiagnosticSignWarn" })
+  vim.fn.sign_define("DiagnosticSignInfo",
+    { text = " ", texthl = "DiagnosticSignInfo" })
+  vim.fn.sign_define("DiagnosticSignHint",
+    { text = "󰌵", texthl = "DiagnosticSignHint" })
 
   neotree.setup({
-    close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
+    close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
     popup_border_style = "rounded",
     enable_git_status = true,
     enable_diagnostics = true,
@@ -47,7 +57,7 @@ function M.setup()
       },
       name = {
         trailing_slash = false,
-        use_git_status_colors = true,
+        use_git_status_colors = false,
         highlight = "NeoTreeFileName",
       },
       git_status = {
@@ -145,7 +155,8 @@ function M.setup()
           --"*/src/*/tsconfig.json",
         },
         always_show = { -- remains visible even if other settings would normally hide it
-          --".gitignored",
+          ".gitignore",
+          ".github",
         },
         never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
           --".DS_Store",
