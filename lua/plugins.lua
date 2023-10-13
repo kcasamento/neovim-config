@@ -43,6 +43,7 @@ function M.setup()
     })
 
     use 'navarasu/onedark.nvim'
+    use 'marko-cerovac/material.nvim'
 
     use("nvim-telescope/telescope-live-grep-args.nvim")
 
@@ -61,6 +62,7 @@ function M.setup()
     use {
       'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate',
+      config = function() require 'config.treesitter'.setup() end,
     }
 
     use {
@@ -278,7 +280,7 @@ function M.setup()
 
     use 'zchee/deoplete-clang'
 
-    use 'dense-analysis/ale'
+    -- use 'dense-analysis/ale'
 
     use 'hashivim/vim-terraform'
 
@@ -339,6 +341,27 @@ function M.setup()
       requires = { "mfussenegger/nvim-dap" },
       config = function()
         require("config.dap-ui").setup()
+      end
+    }
+
+    use {
+      "SmiteshP/nvim-navbuddy",
+      requires = {
+        "neovim/nvim-lspconfig",
+        "SmiteshP/nvim-navic",
+        "MunifTanjim/nui.nvim",
+        "numToStr/Comment.nvim",        -- Optional
+        "nvim-telescope/telescope.nvim" -- Optional
+      },
+      config = function()
+        require("config.navbuddy").setup()
+      end
+    }
+
+    use {
+      'simrat39/symbols-outline.nvim',
+      config = function()
+        require("config.symbols-outline").setup()
       end
     }
 

@@ -131,6 +131,15 @@ function M.setup()
     ),
   }
 
+  lspconfig.clangd.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    cmd = {
+      "clangd",
+      "--offset-encoding=utf-16",
+    },
+  }
+
   require 'lspconfig'.volar.setup {}
   lspconfig.vuels.setup {
     on_attach = on_attach,

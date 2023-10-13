@@ -1,12 +1,5 @@
 local opt = vim.opt
 
--- vim.cmd.colorscheme("rose-pine")
--- vim.cmd.colorscheme("onedark")
-require 'onedark'.setup({
-  style = 'cool',
-})
-require 'onedark'.load()
-
 opt.relativenumber = true
 opt.number = true
 

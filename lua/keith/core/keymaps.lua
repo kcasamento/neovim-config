@@ -252,3 +252,13 @@ wk.register({
 }, {
   prefix = "<leader>",
 })
+
+wk.register({
+  ["<leader>"] = {
+    name = "leader",
+    n = {
+      name = "Navbuddy",
+      o = { ":Navbuddy<cr>", "Open Navbuddy" },
+    },
+  },
+})
