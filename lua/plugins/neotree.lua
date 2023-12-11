@@ -231,4 +231,14 @@ function M.setup()
   })
 end
 
-return M
+return {
+  'nvim-neo-tree/neo-tree.nvim',
+  branch = 'v3.x',
+  dependencies = {
+    'nvim-lua/plenary.nvim',
+    'kyazdani42/nvim-web-devicons',
+    'MunifTanjim/nui.nvim',
+  },
+  init = function() vim.g.neo_tree_legacy_commands = false end,
+  config = M.setup,
+}

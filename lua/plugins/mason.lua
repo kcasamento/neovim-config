@@ -15,4 +15,7 @@ function M.setup()
   })
 end
 
-return M
+return {
+  'williamboman/mason.nvim',
+  config = M.setup,
+}

@@ -115,4 +115,8 @@ function M.setup()
   vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
 end
 
-return M
+return {
+  "nvim-treesitter/nvim-treesitter-textobjects",
+  dependencies = { "nvim-treesitter", "nvim-treesitter/nvim-treesitter" },
+  config = M.setup,
+}

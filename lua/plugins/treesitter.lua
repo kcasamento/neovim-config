@@ -47,4 +47,14 @@ function M.setup()
   }
 end
 
-return M
+return {
+  {
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    config = M.setup,
+  },
+  {
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    dependencies = 'nvim-treesitter',
+  },
+}

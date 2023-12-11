@@ -95,4 +95,16 @@ function M.setup()
   }
 end
 
-return M
+-- return M
+return {
+  {
+    'hrsh7th/nvim-cmp',
+    config = M.setup,
+  },
+
+  'hrsh7th/cmp-path',
+
+  'hrsh7th/cmp-nvim-lsp',
+
+  'saadparwaiz1/cmp_luasnip',
+}

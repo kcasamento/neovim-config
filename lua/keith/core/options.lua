@@ -1,5 +1,8 @@
 local opt = vim.opt
 
+-- set leader key to space
+vim.g.mapleader = " "
+
 opt.relativenumber = true
 opt.number = true
 

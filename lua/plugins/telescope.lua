@@ -83,4 +83,20 @@ function M.setup()
   telescope.load_extension('harpoon')
 end
 
-return M
+return {
+  {
+    'nvim-telescope/telescope.nvim',
+    cmd = 'Telescope',
+    config = M.setup,
+  },
+
+  "nvim-telescope/telescope-live-grep-args.nvim",
+
+  {
+    'nvim-telescope/telescope-fzf-native.nvim',
+    dependencies = 'telescope.nvim',
+    enabled = vim.fn.executable "make" ~= 0,
+    build = "make",
+  },
+
+}

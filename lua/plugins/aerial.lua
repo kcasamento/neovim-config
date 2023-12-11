@@ -31,5 +31,7 @@ function M.setup()
   })
 end
 
-return M
-
+return {
+  'stevearc/aerial.nvim',
+  config = M.setup,
+}

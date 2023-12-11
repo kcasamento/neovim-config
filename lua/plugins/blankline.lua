@@ -10,4 +10,7 @@ function M.setup()
   })
 end
 
-return M
+return {
+  "lukas-reineke/indent-blankline.nvim",
+  config = M.setup
+}

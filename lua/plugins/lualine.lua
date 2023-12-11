@@ -58,4 +58,14 @@ function M.setup()
   })
 end
 
-return M
+return {
+  'nvim-lualine/lualine.nvim',
+  dependencies = {
+    { 'RRethy/nvim-base16', lazy = false },
+    {
+      'kyazdani42/nvim-web-devicons',
+      lazy = true,
+    }
+  },
+  config = M.setup,
+}

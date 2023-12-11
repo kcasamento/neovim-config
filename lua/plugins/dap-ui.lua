@@ -7,4 +7,8 @@ function M.setup()
   dapui.setup()
 end
 
-return M
+return {
+  "rcarriga/nvim-dap-ui",
+  dependencies = { "mfussenegger/nvim-dap" },
+  config = M.setup,
+}

@@ -148,4 +148,7 @@ function M.setup()
   require 'lspconfig'.tflint.setup {}
 end
 
-return M
+return {
+  'neovim/nvim-lspconfig',
+  config = M.setup,
+}

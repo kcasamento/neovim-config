@@ -7,4 +7,7 @@ function M.setup()
   dap.setup()
 end
 
-return M
+return {
+  'leoluz/nvim-dap-go',
+  config = M.setup,
+}

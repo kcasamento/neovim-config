@@ -16,4 +16,8 @@ function M.setup()
   })
 end
 
-return M
+return {
+  'williamboman/mason-lspconfig.nvim',
+  dependencies = { 'mason.nvim', 'nvim-lspconfig' },
+  config = M.setup,
+}

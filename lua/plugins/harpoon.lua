@@ -7,4 +7,7 @@ function M.setup()
   harpoon.setup({})
 end
 
-return M
+return {
+  "ThePrimeagen/harpoon",
+  config = M.setup,
+}

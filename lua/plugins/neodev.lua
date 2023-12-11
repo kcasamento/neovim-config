@@ -1,6 +1,6 @@
 local M = {}
 
-function M.setup()
+M.setup = function()
   local status_ok, neodev = pcall(require, "neodev")
   if not status_ok then return end
 
@@ -17,4 +17,7 @@ function M.setup()
   })
 end
 
-return M
+return {
+  'folke/neodev.nvim',
+  config = M.setup,
+}

@@ -30,4 +30,7 @@ function M.setup()
   -- })
 end
 
-return M
+return {
+  'ray-x/go.nvim',
+  config = M.setup,
+}

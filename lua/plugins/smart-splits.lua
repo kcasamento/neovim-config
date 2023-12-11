@@ -14,4 +14,7 @@ function M.setup()
   })
 end
 
-return M
+return {
+  'mrjones2014/smart-splits.nvim',
+  config = M.setup,
+}
