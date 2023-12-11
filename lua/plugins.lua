@@ -161,7 +161,7 @@ function M.setup()
 
     use {
       'ray-x/go.nvim',
-      ft = 'go',
+      -- ft = 'go',
       config = function()
         require 'config.go'.setup()
       end
@@ -238,22 +238,22 @@ function M.setup()
 
     use 'tpope/vim-unimpaired'
 
-    use 'camgraff/telescope-tmux.nvim'
-    use {
-      'norcalli/nvim-terminal.lua',
-      config = function()
-        require 'terminal'.setup()
-      end
-    }
+    -- use 'camgraff/telescope-tmux.nvim'
+    -- use {
+    --   'norcalli/nvim-terminal.lua',
+    --   config = function()
+    --     require 'terminal'.setup()
+    --   end
+    -- }
 
-    use {
-      "nvim-telescope/telescope-frecency.nvim",
-      requires = { "kkharji/sqlite.lua" }
-    }
+    -- use {
+    --   "nvim-telescope/telescope-frecency.nvim",
+    --   requires = { "kkharji/sqlite.lua" }
+    -- }
 
-    use { "nvim-telescope/telescope-file-browser.nvim" }
+    -- use { "nvim-telescope/telescope-file-browser.nvim" }
 
-    use 'mbbill/undotree'
+    -- use 'mbbill/undotree'
 
     use {
       "folke/zen-mode.nvim",
@@ -364,6 +364,15 @@ function M.setup()
         require("config.symbols-outline").setup()
       end
     }
+
+    use({
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      after = "nvim-treesitter",
+      requires = "nvim-treesitter/nvim-treesitter",
+      config = function()
+        require("config.nvim-treesitter-text-obj").setup()
+      end
+    })
 
     if packer_bootstrap then
       require('packer').sync()

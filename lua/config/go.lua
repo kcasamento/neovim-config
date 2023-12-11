@@ -12,11 +12,14 @@ function M.setup()
     dap_debug = true,
     dap_debug_gui = true,
     lsp_gofumpt = true,
-    lsp_diag_virtual_text = true,
+    -- lsp_diag_virtual_text = true,
     dap_debug_keymap = false,
+    lsp_inlay_hints = {
+      enable = false,
+    },
     textobjects = false,
   })
-
+  --
   -- local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
   -- vim.api.nvim_create_autocmd("BufWritePre", {
   --   pattern = "*.go",
