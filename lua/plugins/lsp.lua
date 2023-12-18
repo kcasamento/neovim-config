@@ -6,7 +6,7 @@
 --
 local M = {}
 
-function M.setup()
+function M.setup(_, _)
   require("neodev").setup({})
 
   local status_ok, lspconfig = pcall(require, "lspconfig")
@@ -60,6 +60,7 @@ function M.setup()
     debounce_text_changes = 150,
   }
 
+  require('cmp.cmp').setup()
   local capabilities = require 'cmp_nvim_lsp'.default_capabilities()
 
   lspconfig['pyright'].setup {
@@ -140,12 +141,17 @@ function M.setup()
     },
   }
 
-  require 'lspconfig'.volar.setup {}
+  lspconfig.volar.setup {}
   lspconfig.vuels.setup {
     on_attach = on_attach,
   }
-  require 'lspconfig'.terraformls.setup {}
-  require 'lspconfig'.tflint.setup {}
+  lspconfig.terraformls.setup {}
+  lspconfig.tflint.setup {}
+  lspconfig.jsonls.setup {
+    on_attach = on_attach,
+    flags = lsp_flags,
+    capabilities = capabilities,
+  }
 end
 
 return {

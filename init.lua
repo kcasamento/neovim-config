@@ -19,4 +19,4 @@ require 'keith.core.theme'
 require 'keith.core.keymaps'
 
 -- after load
--- require 'plugins.cmp'.setup()
+-- require 'cmp.cmp'.setup()

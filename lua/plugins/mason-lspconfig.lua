@@ -12,6 +12,7 @@ function M.setup()
       'lua_ls',
       'eslint',
       'terraformls',
+      'jsonls',
     },
   })
 end

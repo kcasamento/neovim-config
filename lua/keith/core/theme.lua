@@ -41,12 +41,12 @@ local opt = vim.opt
 -- })
 --
 -- vim.cmd.colorscheme("rose-pine")
-
-vim.cmd.colorscheme("onedark")
-require 'onedark'.setup({
-  style = 'cool',
-})
-require 'onedark'.load()
+vim.cmd.colorscheme("catppuccin-macchiato")
+-- vim.cmd.colorscheme("onedark")
+-- require 'onedark'.setup({
+--   style = 'cool',
+-- })
+-- require 'onedark'.load()
 
 -- require('material').setup()
 -- vim.cmd 'colorscheme material'
