@@ -5,6 +5,14 @@ function M.setup()
   if not status_ok then return end
 
   mason.setup({
+    ensure_installed = {
+      "goimports",
+      "gofumpt",
+      "gomodifytags",
+      "impl",
+      "delve",
+      "js-debug-adapter",
+    },
     ui = {
       icons = {
         package_installed = "✓",

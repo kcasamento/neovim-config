@@ -57,4 +57,6 @@ return {
   'hashivim/vim-terraform',
 
   'mfussenegger/nvim-dap',
+
+  -- 'TaDaa/vimade',
 }

@@ -53,6 +53,20 @@ function M.setup(_, _)
     vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
     vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+
+    if client.name == "gopls" then
+      if not client.server_capabilities.semanticTokensProvider then
+        local semantic = client.config.capabilities.textDocument.semanticTokens
+        client.server_capabilities.semanticTokensProvider = {
+          full = true,
+          legend = {
+            tokenTypes = semantic.tokenTypes,
+            tokenModifiers = semantic.tokenModifiers,
+          },
+          range = true,
+        }
+      end
+    end
   end
 
   local lsp_flags = {
@@ -73,6 +87,25 @@ function M.setup(_, _)
     on_attach = on_attach,
     flags = lsp_flags,
     capabilities = capabilities,
+    settings = {
+      typescript = {
+        format = {
+          indentSize = vim.o.shiftwidth,
+          convertTabsToSpaces = vim.o.expandtab,
+          tabSize = vim.o.tabstop,
+        },
+      },
+      javascript = {
+        format = {
+          indentSize = vim.o.shiftwidth,
+          convertTabsToSpaces = vim.o.expandtab,
+          tabSize = vim.o.tabstop,
+        },
+      },
+      completions = {
+        completeFunctionCalls = true,
+      },
+    }
   }
 
   lspconfig['gopls'].setup {
@@ -81,16 +114,36 @@ function M.setup(_, _)
     capabilities = capabilities,
     settings = {
       gopls = {
+        gofumpt = true,
         codelenses = {
           generate = true,
           gc_details = false,
+          run_govulncheck = true,
           test = true,
           tidy = true,
+          updgrade_dependency = true,
+          vendor = true,
+        },
+        hints = {
+          assignVariableTypes = true,
+          compositeLiteralFields = true,
+          compositeLiteralTypes = true,
+          constantValues = true,
+          functionTypeParameters = true,
+          parameterNames = true,
+          rangeVariableTypes = true,
         },
         analyses = {
+          fieldalignment = true,
+          nilness = true,
           unusedparams = true,
-          unusedvariable = true,
+          unusedwrite = true,
+          useany = true,
         },
+        usePlaceholders = true,
+        completeUnimported = true,
+        directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+        semanticTokens = true,
         staticcheck = true,
       }
     }

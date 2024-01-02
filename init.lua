@@ -20,3 +20,10 @@ require 'keith.core.keymaps'
 
 -- after load
 -- require 'cmp.cmp'.setup()
+-- vim.cmd [[ highlight Normal guibg=colour236 ]]
+--
+--
+
+vim.cmd [[
+  set winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
+]]

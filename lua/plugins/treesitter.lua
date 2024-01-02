@@ -6,7 +6,19 @@ function M.setup()
 
   ts.setup {
     -- A list of parser names, or "all" (the five listed parsers should always be installed)
-    ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
+    ensure_installed = {
+      "c",
+      "lua",
+      "vim",
+      "vimdoc",
+      "query",
+      "go",
+      "gomod",
+      "gowork",
+      "gosum",
+      "typescript",
+      "tsx",
+    },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
