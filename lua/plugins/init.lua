@@ -58,5 +58,10 @@ return {
 
   'mfussenegger/nvim-dap',
 
+  {
+    'xiyaowong/transparent.nvim',
+    lazy = false,
+  },
+
   -- 'TaDaa/vimade',
 }

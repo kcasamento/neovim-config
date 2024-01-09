@@ -18,6 +18,9 @@ keymap.set("n", "N", "Nzzzv", mapopts)
 keymap.set("n", "]q", "<cmd>cnext<cr>", mapopts)
 keymap.set("n", "[q", "<cmd>cprev<cr>", mapopts)
 
+keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
 -- Better Experience
 keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
@@ -214,11 +217,30 @@ wk.register({
 })
 
 -- -- Harpoon
+-- basic telescope configuration
+local conf = require("telescope.config").values
+local function toggle_telescope(harpoon_files)
+  local file_paths = {}
+  for _, item in ipairs(harpoon_files.items) do
+    table.insert(file_paths, item.value)
+  end
+
+  require("telescope.pickers").new({}, {
+    prompt_title = "Harpoon",
+    initial_mode = "normal",
+    finder = require("telescope.finders").new_table({
+      results = file_paths,
+    }),
+    previewer = conf.file_previewer({}),
+    sorter = conf.generic_sorter({}),
+  }):find()
+end
+
 wk.register({
   h = {
     name = "Harpoon",
-    h = { ":Telescope harpoon marks initial_mode=normal<cr>", "Toggle Harpoon Marks UI" },
-    m = { function() require('harpoon.mark').add_file() end, "Add Harpoon Mark" },
+    a = { function() require('harpoon'):list():append() end, "Append to List" },
+    h = { function() toggle_telescope(require('harpoon'):list()) end, "Toggle Harpoon Marks UI" },
   }
 }, {
   prefix = "<leader>",
