@@ -44,7 +44,7 @@ keymap.set("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>", mapopts)
 
 
 -- NeoTree
-keymap.set("n", "<leader>e", ":Neotree toggle<cr>", mapopts)
+keymap.set("n", "<leader>e", ":Neotree position=float toggle<cr>", mapopts)
 keymap.set("n", "<leader>nh", ":nohl<CR>", mapopts)
 
 
@@ -72,21 +72,21 @@ wk.register({
       "Current Buffer Fuzzy Find",
     }
   },
-  -- g = {
-  --   name = "Telescope Git",
-  --   s = {
-  --     function() require 'telescope.builtin'.git_status() end,
-  --     "Git Status",
-  --   },
-  --   b = {
-  --     function() require 'telescope.builtin'.git_branches() end,
-  --     "Git Branches",
-  --   },
-  --   c = {
-  --     function() require 'telescope.builtin'.git_commits() end,
-  --     "Git Commits",
-  --   }
-  -- },
+  g = {
+    name = "Telescope Git",
+    s = {
+      function() require 'telescope.builtin'.git_status({ initial_mode = 'normal' }) end,
+      "Git Status",
+    },
+    b = {
+      function() require 'telescope.builtin'.git_branches({ initial_mode = 'normal' }) end,
+      "Git Branches",
+    },
+    c = {
+      function() require 'telescope.builtin'.git_commits({ initial_mode = 'normal' }) end,
+      "Git Commits",
+    }
+  },
   s = {
     name = "Telescope Search",
     h = {
@@ -281,4 +281,12 @@ wk.register({
       o = { ":Navbuddy<cr>", "Open Navbuddy" },
     },
   },
+})
+
+wk.register({
+  n = {
+    n = { ":NoNeckPain<cr>", "Toggle NoNeckPain" },
+  },
+}, {
+  prefix = "<leader>",
 })

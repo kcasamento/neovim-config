@@ -236,7 +236,8 @@ return {
   branch = 'v3.x',
   dependencies = {
     'nvim-lua/plenary.nvim',
-    'kyazdani42/nvim-web-devicons',
+    -- 'kyazdani42/nvim-web-devicons',
+    "nvim-tree/nvim-web-devicons",
     'MunifTanjim/nui.nvim',
   },
   init = function() vim.g.neo_tree_legacy_commands = false end,

@@ -18,4 +18,10 @@ return {
       require("copilot_cmp").setup()
     end
   },
+  {
+    'z0rzi/ai-chat.nvim',
+    config = function()
+      require('ai-chat').setup {}
+    end,
+  },
 }

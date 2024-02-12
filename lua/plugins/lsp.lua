@@ -130,12 +130,22 @@ M.setup = function()
       'tflint',
       'volar',
       'clangd',
-
+      'lemminx',
     },
     automatic_installation = true,
     handlers = {
       function(server_name) -- default handler (optional)
         require("lspconfig")[server_name].setup {}
+      end,
+      ["lemminx"] = function()
+        -- xml lsp
+        lspconfig.lemminx.setup({
+          xml = {
+            server = {
+              workDir = "~/.cache/lemminx",
+            }
+          }
+        })
       end,
       ["eslint"] = function()
         local util = require 'lspconfig.util'

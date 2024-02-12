@@ -1,5 +1,5 @@
 return {
-  { "folke/neoconf.nvim", cmd = "Neoconf" },
+  { "folke/neoconf.nvim",          cmd = "Neoconf" },
 
   "nvim-lua/plenary.nvim",
 
@@ -62,6 +62,19 @@ return {
     'xiyaowong/transparent.nvim',
     lazy = false,
   },
-
+  {
+    "folke/zen-mode.nvim",
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    }
+  },
   -- 'TaDaa/vimade',
+  'wesQ3/vim-windowswap',
+  {
+    "LintaoAmons/scratch.nvim",
+    event = "VeryLazy",
+  },
+  { "shortcuts/no-neck-pain.nvim", version = "*" }
 }
