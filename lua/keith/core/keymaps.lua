@@ -5,6 +5,7 @@ local keymap = vim.keymap -- for conciseness
 local mapopts = {
   noremap = true,
   silent = true,
+  desc = "",
 }
 
 -- Standard
@@ -18,6 +19,7 @@ keymap.set("n", "N", "Nzzzv", mapopts)
 keymap.set("n", "]q", "<cmd>cnext<cr>", mapopts)
 keymap.set("n", "[q", "<cmd>cprev<cr>", mapopts)
 
+-- move line up/down
 keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
@@ -27,9 +29,6 @@ keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 -- Word Wrap
 keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-
--- LSP
--- keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", mapopts)
 
 -- Comment
 keymap.set("n", "<leader>/", function() require 'Comment.api'.toggle.linewise.current() end, mapopts)
@@ -91,13 +90,19 @@ wk.register({
     name = "Telescope Search",
     h = {
       function() require 'telescope.builtin'.help_tags() end,
-      "Search Help",
+      "[S]earch [H]elp",
     },
     d = {
       function()
         require('telescope.builtin').diagnostics({ initial_mode = 'normal' })
       end,
-      "Show diagnostics",
+      "[S]how [d]iagnostics",
+    },
+    k = {
+      function()
+        require('telescope.builtin').keymaps({})
+      end,
+      "[S]how [k]eymaps",
     }
   },
 }, {
@@ -192,28 +197,6 @@ wk.register({
     end,
     "Go to next diagnostic",
   },
-
-  -- g = {
-  --   name = "LSP",
-  --   d = {
-  --     function()
-  --       require('telescope.builtin').lsp_definitions({ initial_mode = 'normal' })
-  --     end,
-  --     "Show definitions"
-  --   },
-  --   t = {
-  --     function()
-  --       vim.lsp.buf.type_defintion()
-  --     end,
-  --     "Show type definition",
-  --   },
-  --   i = {
-  --     function()
-  --       require 'telescope.builtin'.lsp_implementations({ initial_mode = 'normal' })
-  --     end,
-  --     "Show implementations"
-  --   },
-  -- }
 })
 
 -- -- Harpoon
@@ -290,3 +273,21 @@ wk.register({
 }, {
   prefix = "<leader>",
 })
+
+wk.register({
+    ["<C-K>"] = { function() require('luasnip').expand() end, "Snip: expand" },
+    ["<C-L>"] = { function() require('luasnip').jump(1) end, "Snip: goto next" },
+    ["<C-J>"] = { function() require('luasnip').jump(-1) end, "Snip: goto prev" },
+    ["<C-E>"] = { function()
+      local ls = require('luasnip')
+
+      if ls.choice_active() then
+        ls.change_choice(1)
+      end
+    end, "Snip: change choice" },
+  },
+  {
+    prefix = "<leader>",
+    mode = "n",
+  }
+)

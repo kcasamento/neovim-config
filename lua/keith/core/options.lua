@@ -69,6 +69,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
+    --
+    -- NOTE: mappings I use most often and are setup propertly
     nmap('<leader>ld', vim.diagnostic.open_float, "Diagnostic Open Float")
     nmap('<leader>ca', vim.lsp.buf.code_action, "Code Action")
     nmap('K', vim.lsp.buf.hover, "Hover")
@@ -78,6 +80,21 @@ vim.api.nvim_create_autocmd('LspAttach', {
       "Go to Implementations")
     nmap('gr', function() require('telescope.builtin').lsp_references() end, "Go to References")
 
+    -- Jump to the type of the word under your cursor.
+    --  Useful when you're not sure what type a variable is and you want to see
+    --  the definition of its *type*, not where it was *defined*.
+    nmap('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+
+    -- Fuzzy find all the symbols in your current document.
+    --  Symbols are things like variables, functions, types, etc.
+    nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+
+    -- Fuzzy find all the symbols in your current workspace
+    --  Similar to document symbols, except searches over your whole project.
+    nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+
+    -- TODO: figure these out someday, do I need them
+    -- what do they do, use the 'nmap' func, etc
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
     vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
@@ -85,7 +102,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<space>wl', function()
       print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, opts)
-    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, opts)
     vim.keymap.set('i', '<C-h>', vim.lsp.buf.signature_help, opts)
