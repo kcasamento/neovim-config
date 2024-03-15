@@ -5,17 +5,23 @@ local keymap = vim.keymap -- for conciseness
 local mapopts = {
   noremap = true,
   silent = true,
-  desc = "",
 }
 
--- Standard
+-- new file
 keymap.set("n", "<leader>fn", "<cmd>enew<cr>")
-keymap.set("v", "<leader>js", ":!python -m json.tool<cr>")
+
+-- format json
+keymap.set("v", "<leader>js", ":!python -m json.tool<cr>", { desc = "Format [J]ava[S]cript" })
+
+-- Scroll up.down but keep cursor centered
 keymap.set("n", "<C-d>", "<C-d>zz", mapopts)
 keymap.set("n", "<C-u>", "<C-u>zz", mapopts)
+
+-- ??
 keymap.set("n", "n", "nzzzv", mapopts)
 keymap.set("n", "N", "Nzzzv", mapopts)
 
+-- navigate quickfix list
 keymap.set("n", "]q", "<cmd>cnext<cr>", mapopts)
 keymap.set("n", "[q", "<cmd>cprev<cr>", mapopts)
 
@@ -37,10 +43,6 @@ keymap.set("v", "<leader>/", "<esc><cmd>lua require'Comment.api'.toggle.linewise
 -- Bufdelete
 keymap.set("n", "<leader>c", "<cmd>Bdelete<cr>", mapopts)
 
--- Navigate buffers
-keymap.set("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>", mapopts)
-keymap.set("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>", mapopts)
-
 
 -- NeoTree
 keymap.set("n", "<leader>e", ":Neotree position=float toggle<cr>", mapopts)
@@ -55,35 +57,35 @@ end, { noremap = true, silent = true, desc = "List Buffers" })
 wk.register({
   f = {
     name = "Telescope",
-    f = { function() require 'telescope.builtin'.find_files() end, "Find Files" },
+    f = { function() require 'telescope.builtin'.find_files() end, "[F]ind [F]iles" },
     g = {
       function()
         require 'telescope'.extensions.live_grep_args.live_grep_args()
       end,
-      "Search Live Grep",
+      "Search Live [G]rep",
     },
     r = {
       ":Telescope resume<cr>",
-      "Resume last query",
+      "[R]esume last query",
     },
-    w = {
+    c = {
       ":Telescope current_buffer_fuzzy_find<cr>",
-      "Current Buffer Fuzzy Find",
+      "[F]ind [C]urrent Buffer (Fuzzy Find)",
     }
   },
   g = {
     name = "Telescope Git",
     s = {
       function() require 'telescope.builtin'.git_status({ initial_mode = 'normal' }) end,
-      "Git Status",
+      "[G]it [S]tatus",
     },
     b = {
       function() require 'telescope.builtin'.git_branches({ initial_mode = 'normal' }) end,
-      "Git Branches",
+      "[G]it [B]ranches",
     },
     c = {
       function() require 'telescope.builtin'.git_commits({ initial_mode = 'normal' }) end,
-      "Git Commits",
+      "[G]it [C]ommits",
     }
   },
   s = {
