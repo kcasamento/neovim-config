@@ -89,4 +89,5 @@ return {
       })
     end
   },
+  'AndrewRadev/splitjoin.vim',
 }

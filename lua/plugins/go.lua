@@ -5,8 +5,8 @@ function M.setup()
   if not status_ok then return end
 
   go.setup({
-    max_line_len = 100,
-    goimport = "gopls",
+    -- max_line_len = 100,
+    goimports = "gopls",
     icons = false,
     fillstruct = "gopls",
     dap_debug = true,

@@ -157,6 +157,7 @@ function M.setup()
         always_show = { -- remains visible even if other settings would normally hide it
           ".gitignore",
           ".github",
+          ".env",
         },
         never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
           --".DS_Store",
@@ -202,9 +203,9 @@ function M.setup()
       commands = {} -- Add a custom command or override a global one using the same function name
     },
     buffers = {
-      follow_current_file = { enabled = true }, -- This will find and focus the file in the active buffer every
+      -- follow_current_file = { enabled = true }, -- This will find and focus the file in the active buffer every
       -- time the current file is changed while the tree is open.
-      group_empty_dirs = true,                  -- when true, empty folders will be grouped together
+      group_empty_dirs = true, -- when true, empty folders will be grouped together
       show_unloaded = true,
       window = {
         mappings = {

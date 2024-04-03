@@ -45,7 +45,7 @@ keymap.set("n", "<leader>c", "<cmd>Bdelete<cr>", mapopts)
 
 
 -- NeoTree
-keymap.set("n", "<leader>e", ":Neotree position=float toggle<cr>", mapopts)
+keymap.set("n", "<leader>e", ":Neotree reveal=true position=float toggle<cr>", mapopts)
 keymap.set("n", "<leader>nh", ":nohl<CR>", mapopts)
 
 
@@ -53,6 +53,15 @@ keymap.set("n", "<leader>nh", ":nohl<CR>", mapopts)
 keymap.set("n", "<leader><Space>", function()
   require 'telescope.builtin'.buffers({ initial_mode = 'normal' })
 end, { noremap = true, silent = true, desc = "List Buffers" })
+
+keymap.set(
+  { "n", "x" },
+  "<leader>rr",
+  function() require('telescope').extensions.refactoring.refactors() end,
+  {
+    desc = "Refactor"
+  }
+)
 
 wk.register({
   f = {
