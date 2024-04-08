@@ -1,5 +1,11 @@
 -- this will not enter the next qf buffer which I think I prefer
-vim.keymap.set("n", "dd", "<cmd>call setqflist(filter(getqflist(), {idx -> idx != line('.') - 1}), 'r')<CR>", {
+vim.keymap.set("n", "dd", ":Reject<CR>", {
+  noremap = true,
+  buffer = true,
+  silent = true,
+})
+
+vim.keymap.set("v", "d", ":Reject<CR>", {
   noremap = true,
   buffer = true,
   silent = true,
