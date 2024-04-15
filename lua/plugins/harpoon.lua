@@ -4,7 +4,11 @@ function M.setup()
   local status_ok, harpoon = pcall(require, "harpoon")
   if not status_ok then return end
 
-  harpoon:setup()
+  harpoon:setup({
+    settings = {
+      save_on_toggle = true,
+    },
+  })
   harpoon:extend({
     UI_CREATE = function(cx)
       vim.keymap.set("n", "<C-v>", function()

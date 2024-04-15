@@ -233,8 +233,9 @@ end
 wk.register({
   h = {
     name = "Harpoon",
-    a = { function() require('harpoon'):list():append() end, "Append to List" },
-    h = { function() toggle_telescope(require('harpoon'):list()) end, "Toggle Harpoon Marks UI" },
+    a = { function() require('harpoon'):list():add() end, "[H]arpoon [A]dd to List" },
+    t = { function() toggle_telescope(require('harpoon'):list()) end, "[H]arpoon [T]oggle Marks UI" },
+    h = { function() require('harpoon').ui:toggle_quick_menu(require('harpoon'):list()) end, "[H]arpoon Toggle Marks UI" },
   }
 }, {
   prefix = "<leader>",
