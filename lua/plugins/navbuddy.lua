@@ -6,7 +6,7 @@ function M.setup()
 
   navbuddy.setup({
     lsp = {
-      auto_attach = true,
+      -- auto_attach = true,
     }
   })
 end
@@ -17,8 +17,9 @@ return {
     "neovim/nvim-lspconfig",
     "SmiteshP/nvim-navic",
     "MunifTanjim/nui.nvim",
-    "numToStr/Comment.nvim",            -- Optional
-    "nvim-telescope/telescope.nvim"     -- Optional
+    "numToStr/Comment.nvim",        -- Optional
+    "nvim-telescope/telescope.nvim" -- Optional
   },
+  opts = { lsp = { auto_attach = true } },
   config = M.setup,
 }

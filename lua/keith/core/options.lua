@@ -3,6 +3,9 @@ local opt = vim.opt
 -- set leader key to space
 vim.g.mapleader = " "
 
+opt.list = true
+opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+
 opt.relativenumber = true
 opt.number = true
 
@@ -15,6 +18,29 @@ opt.wrap = false
 
 opt.ignorecase = true
 opt.smartcase = true
+
+-- Save undo history
+opt.undofile = true
+
+-- Preview substitutions live, as you type!
+opt.inccommand = 'split'
+
+-- Show which line your cursor is on
+opt.cursorline = true
+
+-- Decrease update time
+opt.updatetime = 250
+
+-- Decrease mapped sequence wait time
+-- Displays which-key popup sooner
+opt.timeoutlen = 300
+
+-- Configure how new splits should be opened
+opt.splitright = true
+opt.splitbelow = true
+
+-- Minimal number of screen lines to keep above and below the cursor.
+opt.scrolloff = 10
 
 opt.termguicolors = true
 opt.background = "dark"
@@ -50,6 +76,7 @@ vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
