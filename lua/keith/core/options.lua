@@ -3,8 +3,9 @@ local opt = vim.opt
 -- set leader key to space
 vim.g.mapleader = " "
 
-opt.list = true
-opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+-- add chars for tabs and spaces, etc
+-- opt.list = true
+-- opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 opt.relativenumber = true
 opt.number = true
