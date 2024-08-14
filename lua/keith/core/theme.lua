@@ -41,7 +41,7 @@ local opt = vim.opt
 -- })
 --
 -- vim.cmd.colorscheme("rose-pine")
-vim.cmd.colorscheme("catppuccin-macchiato")
+-- vim.cmd.colorscheme("catppuccin-macchiato")
 -- vim.cmd.colorscheme("onedark")
 -- require 'onedark'.setup({
 --   style = 'cool',

@@ -45,9 +45,11 @@ keymap.set("n", "<leader>c", "<cmd>Bdelete<cr>", mapopts)
 
 
 -- NeoTree
-keymap.set("n", "<leader>e", ":Neotree reveal=true position=float toggle<cr>", mapopts)
+-- keymap.set("n", "<leader>e", ":Neotree reveal=true position=float toggle<cr>", mapopts)
 keymap.set("n", "<leader>nh", ":nohl<CR>", mapopts)
 
+-- Oil
+keymap.set("n", "<leader>e", ":Oil<cr>", mapopts)
 
 -- Telescope
 keymap.set("n", "<leader><Space>", function()

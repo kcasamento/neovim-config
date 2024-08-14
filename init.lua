@@ -17,6 +17,7 @@ require("lazy").setup("plugins")
 
 require 'keith.core.theme'
 require 'keith.core.keymaps'
+require 'keith.custom.terminal'
 
 -- after load
 -- require 'cmp.cmp'.setup()

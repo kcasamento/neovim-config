@@ -69,7 +69,7 @@ M.setup = function()
       ["<c-space>"] = cmp.mapping {
         i = cmp.mapping.complete(),
         c = function(
-          _ --[[fallback]]
+            _ --[[fallback]]
         )
           if cmp.visible() then
             if not cmp.confirm { select = true } then
@@ -269,7 +269,7 @@ M.setup = function()
     }
   })
   local capabilities = require 'cmp_nvim_lsp'.default_capabilities()
-  local servers = { 'lua_ls', 'tsserver', 'pyright', 'gopls', 'clangd' }
+  local servers = { 'lua_ls', 'tsserver', 'pyright', 'gopls', 'clangd', 'ocamllsp' }
   for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup {
       capabilities = capabilities,
