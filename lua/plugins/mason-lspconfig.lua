@@ -6,7 +6,7 @@ function M.setup()
 
   mason_lspconfig.setup({
     ensure_installed = {
-      'tsserver',
+      'ts_ls',
       'gopls',
       'pyright',
       'lua_ls',

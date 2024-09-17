@@ -90,4 +90,14 @@ return {
     end
   },
   'AndrewRadev/splitjoin.vim',
+  { 'towolf/vim-helm', ft = 'helm' },
+  {
+    'xvzc/chezmoi.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      require("chezmoi").setup {
+        -- your configurations
+      }
+    end
+  },
 }

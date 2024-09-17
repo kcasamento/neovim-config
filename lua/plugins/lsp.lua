@@ -118,9 +118,11 @@ M.setup = function()
       },
     },
   })
+
+
   require("mason-lspconfig").setup({
     ensure_installed = {
-      'tsserver',
+      'ts_ls',
       'gopls',
       'pyright',
       'lua_ls',
@@ -131,6 +133,8 @@ M.setup = function()
       'volar',
       'clangd',
       'lemminx',
+      'html',
+      'helm_ls',
     },
     automatic_installation = true,
     handlers = {
@@ -146,6 +150,20 @@ M.setup = function()
             }
           }
         })
+      end,
+      ["yamlls"] = function()
+        lspconfig.yamlls.setup {}
+      end,
+      ["helm_ls"] = function()
+        lspconfig.helm_ls.setup {
+          settings = {
+            ['helm-ls'] = {
+              yamlls = {
+                path = "yaml-language-server",
+              }
+            }
+          }
+        }
       end,
       ["eslint"] = function()
         local util = require 'lspconfig.util'
@@ -235,8 +253,8 @@ M.setup = function()
           },
         })
       end,
-      ['tsserver'] = function()
-        lspconfig.tsserver.setup({
+      ['ts_ls'] = function()
+        lspconfig.ts_ls.setup({
           settings = {
             typescript = {
               format = {
@@ -269,10 +287,20 @@ M.setup = function()
     }
   })
   local capabilities = require 'cmp_nvim_lsp'.default_capabilities()
-  local servers = { 'lua_ls', 'tsserver', 'pyright', 'gopls', 'clangd', 'ocamllsp' }
+  local servers = { 'lua_ls', 'ts_ls', 'pyright', 'gopls', 'clangd', 'ocamllsp' }
   for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup {
       capabilities = capabilities,
+    }
+  end
+
+
+  local client_capabilities = vim.lsp.protocol.make_client_capabilities()
+  client_capabilities.textDocument.completion.completionItem.snippetSupport = true
+  local clients = { 'html' }
+  for _, lsp in ipairs(clients) do
+    lspconfig[lsp].setup {
+      capabilities = client_capabilities,
     }
   end
 end

@@ -52,6 +52,7 @@ keymap.set("n", "<leader>nh", ":nohl<CR>", mapopts)
 keymap.set("n", "<leader>e", ":Oil<cr>", mapopts)
 
 -- Telescope
+
 keymap.set("n", "<leader><Space>", function()
   require 'telescope.builtin'.buffers({ initial_mode = 'normal' })
 end, { noremap = true, silent = true, desc = "List Buffers" })
@@ -100,6 +101,10 @@ wk.add({
   { "<leader>sh", function() require 'telescope.builtin'.help_tags() end,                              desc = "[S]earch [H]elp" },
   { "<leader>sd", function() require 'telescope.builtin'.diagnostics({ initial_mode = 'normal' }) end, desc = "[S]how [D]iagnostics" },
   { "<leader>sc", function() require 'telescope.builtin'.keymaps({}) end,                              desc = "[S]how [K]eymaps" },
+})
+
+wk.add({
+  { "<leader>ez", function() require('telescope').extensions.chezmoi.find_files() end, desc = "Chezmoi" },
 })
 
 -- Tmux
