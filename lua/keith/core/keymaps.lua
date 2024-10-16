@@ -71,7 +71,8 @@ wk.add({
   { "<leader>ff", function() require 'telescope.builtin'.find_files() end,                       desc = "[F]ind [F]iles" },
   { "<leader>fg", function() require 'telescope'.extensions.live_grep_args.live_grep_args() end, desc = "Search [F]iles with Live [G]rep" },
   { "<leader>fr", ":Telescope resume<cr>",                                                       desc = "[R]esume last query" },
-  { "<leader>fc", ":Telescope :current_buffer_fuzzy_find<cr>",                                   desc = "[F]ind [C]urrent Buffer (Fuzzy Find)" },
+  -- { "<leader>fc", ":Telescope :current_buffer_fuzzy_find<cr>",                                   desc = "[F]ind [C]urrent Buffer (Fuzzy Find)" },
+  { "<leader>fc", function() require 'telescope.builtin'.current_buffer_fuzzy_find() end,        desc = "[F]ind [C]urrent Buffer (Fuzzy Find)" },
   {
     "<leader>fg",
     function()

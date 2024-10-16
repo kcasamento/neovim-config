@@ -151,6 +151,24 @@ M.setup = function()
           }
         })
       end,
+      ["elixirls"] = function()
+        -- local path_to_elixirls = vim.fn.expand("~/.cache/nvim/lspconfig/elixirls/elixir-ls/release/language_server.sh")
+        lspconfig.elixirls.setup({
+          -- cmd = { path_to_elixirls },
+          settings = {
+            elixirLS = {
+              -- I choose to disable dialyzer for personal reasons, but
+              -- I would suggest you also disable it unless you are well
+              -- acquainted with dialzyer and know how to use it.
+              dialyzerEnabled = false,
+              -- I also choose to turn off the auto dep fetching feature.
+              -- It often get's into a weird state that requires deleting
+              -- the .elixir_ls directory and restarting your editor.
+              fetchDeps = false
+            }
+          }
+        })
+      end,
       ["yamlls"] = function()
         lspconfig.yamlls.setup {}
       end,
@@ -287,7 +305,7 @@ M.setup = function()
     }
   })
   local capabilities = require 'cmp_nvim_lsp'.default_capabilities()
-  local servers = { 'lua_ls', 'ts_ls', 'pyright', 'gopls', 'clangd', 'ocamllsp' }
+  local servers = { 'lua_ls', 'ts_ls', 'pyright', 'gopls', 'clangd', 'ocamllsp', 'elixirls' }
   for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup {
       capabilities = capabilities,
