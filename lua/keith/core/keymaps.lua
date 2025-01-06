@@ -8,8 +8,9 @@ local mapopts = {
 }
 
 -- new file
-keymap.set("n", "<leader>fn", "<cmd>enew<cr>")
+-- keymap.set("n", "<leader>fn", "<cmd>enew<cr>")
 
+-- search notes
 -- format json
 keymap.set("v", "<leader>js", ":!python -m json.tool<cr>", { desc = "Format [J]ava[S]cript" })
 
@@ -17,7 +18,7 @@ keymap.set("v", "<leader>js", ":!python -m json.tool<cr>", { desc = "Format [J]a
 keymap.set("n", "<C-d>", "<C-d>zz", mapopts)
 keymap.set("n", "<C-u>", "<C-u>zz", mapopts)
 
--- ??
+-- always centers search results
 keymap.set("n", "n", "nzzzv", mapopts)
 keymap.set("n", "N", "Nzzzv", mapopts)
 
@@ -44,15 +45,12 @@ keymap.set("v", "<leader>/", "<esc><cmd>lua require'Comment.api'.toggle.linewise
 keymap.set("n", "<leader>c", "<cmd>Bdelete<cr>", mapopts)
 
 
--- NeoTree
--- keymap.set("n", "<leader>e", ":Neotree reveal=true position=float toggle<cr>", mapopts)
 keymap.set("n", "<leader>nh", ":nohl<CR>", mapopts)
 
 -- Oil
 keymap.set("n", "<leader>e", ":Oil<cr>", mapopts)
 
 -- Telescope
-
 keymap.set("n", "<leader><Space>", function()
   require 'telescope.builtin'.buffers({ initial_mode = 'normal' })
 end, { noremap = true, silent = true, desc = "List Buffers" })
@@ -71,8 +69,12 @@ wk.add({
   { "<leader>ff", function() require 'telescope.builtin'.find_files() end,                       desc = "[F]ind [F]iles" },
   { "<leader>fg", function() require 'telescope'.extensions.live_grep_args.live_grep_args() end, desc = "Search [F]iles with Live [G]rep" },
   { "<leader>fr", ":Telescope resume<cr>",                                                       desc = "[R]esume last query" },
-  -- { "<leader>fc", ":Telescope :current_buffer_fuzzy_find<cr>",                                   desc = "[F]ind [C]urrent Buffer (Fuzzy Find)" },
   { "<leader>fc", function() require 'telescope.builtin'.current_buffer_fuzzy_find() end,        desc = "[F]ind [C]urrent Buffer (Fuzzy Find)" },
+  {
+    "<leader>fn",
+    ":ObsidianSearch<cr>",
+    desc = "[F]ind [N]otes in the Obsidian vault"
+  },
   {
     "<leader>fg",
     function()
@@ -88,7 +90,7 @@ wk.add({
       require 'telescope'.extensions.live_grep_args.live_grep_args({ default_text = t })
     end,
     mode = "v",
-    desc = "Search Live Grep Under Cursor"
+    desc = "Search Live [G]rep Under Cursor"
   }
 })
 wk.add({
@@ -98,14 +100,14 @@ wk.add({
   { "<leader>gc", function() require 'telescope.builtin'.git_commits({ initial_mode = 'normal' }) end,  desc = "[G]it [C]ommits" },
 })
 wk.add({
-  { "<leader>s",  group = "git" }, -- group
+  { "<leader>s",  group = "help" }, -- group
   { "<leader>sh", function() require 'telescope.builtin'.help_tags() end,                              desc = "[S]earch [H]elp" },
   { "<leader>sd", function() require 'telescope.builtin'.diagnostics({ initial_mode = 'normal' }) end, desc = "[S]how [D]iagnostics" },
-  { "<leader>sc", function() require 'telescope.builtin'.keymaps({}) end,                              desc = "[S]how [K]eymaps" },
+  { "<leader>sk", function() require 'telescope.builtin'.keymaps({}) end,                              desc = "[S]how [K]eymaps" },
 })
 
 wk.add({
-  { "<leader>ez", function() require('telescope').extensions.chezmoi.find_files() end, desc = "Chezmoi" },
+  { "<leader>fz", function() require('telescope').extensions.chezmoi.find_files() end, desc = "[F]ind Che[z]moi files" },
 })
 
 -- Tmux
@@ -203,7 +205,7 @@ wk.add({
 })
 
 wk.add({
-  { "<leader>no", ":Navbuddy<cr>", desc = "Open Navbuddy" },
+  { "<leader>nb", ":Navbuddy<cr>", desc = "Open [N]av[b]uddy" },
 })
 
 wk.add({

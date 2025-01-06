@@ -53,12 +53,16 @@ opt.foldexpr = 'nvim_treesitter#foldexpr()'
 opt.foldmethod = 'expr'
 opt.foldlevel = 99
 
+opt.conceallevel = 1
+
 vim.o.updatetime = 250
 vim.o.timeout = true
 vim.o.timeoutlen = 300
 
 vim.o.completeopt = 'menuone,noselect'
 vim.o.breakindent = true
+
+
 
 vim.g.icons_enabled = true
 vim.cmd([[silent! autocmd! filetypedetect BufRead,BufNewFile *.tf]])
@@ -77,6 +81,8 @@ vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+
+
 
 
 -- Use LspAttach autocommand to only map the following keys

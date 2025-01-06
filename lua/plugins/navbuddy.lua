@@ -6,7 +6,7 @@ function M.setup()
 
   navbuddy.setup({
     lsp = {
-      -- auto_attach = true,
+      auto_attach = true,
     }
   })
 end
