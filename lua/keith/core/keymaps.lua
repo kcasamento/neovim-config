@@ -120,8 +120,10 @@ keymap.set("n", "<C-j>", function() require 'smart-splits'.move_cursor_down() en
 keymap.set("n", "<C-k>", function() require 'smart-splits'.move_cursor_up() end, mapopts)
 keymap.set("n", "<C-l>", function() require 'smart-splits'.move_cursor_right() end, mapopts)
 
-keymap.set("n", "<C-\\>", ":vsplit", mapopts)
-keymap.set("n", "<C-->>", ":split", mapopts)
+keymap.set("n", "<C-\\>", ":vsplit<cr>", mapopts)
+keymap.set("n", "<C-c>", ":close<cr>", mapopts)
+-- keymap.set("n", "<C- >", ":vertical resize 1<cr>", mapopts)
+-- keymap.set("n", "<C- >", ":vertical resize 2<cr>", mapopts)
 
 keymap.set("n", "<C-Up>", function() require 'smart-splits'.resize_up() end, mapopts)
 keymap.set("n", "<C-Down>", function() require 'smart-splits'.resize_down() end, mapopts)
