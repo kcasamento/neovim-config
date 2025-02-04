@@ -25,3 +25,7 @@
 `<leader>js` formats (pretty) json in visual mode
 `J` and `K` moves line up/down in visual mode
 `<C-t>` in insert mode shows the function signature
+
+## Go to know
+`:messages` will show the last stderr message in full view
+`:redir` will redirect the stderr message to a file
