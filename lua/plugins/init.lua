@@ -76,7 +76,9 @@ return {
     "LintaoAmons/scratch.nvim",
     event = "VeryLazy",
   },
+
   { "shortcuts/no-neck-pain.nvim", version = "*" },
+
   {
     "vinnymeller/swagger-preview.nvim",
     build = "npm install -g swagger-ui-watcher",
@@ -89,8 +91,11 @@ return {
       })
     end
   },
+
   'AndrewRadev/splitjoin.vim',
+
   { 'towolf/vim-helm', ft = 'helm' },
+
   {
     'xvzc/chezmoi.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },

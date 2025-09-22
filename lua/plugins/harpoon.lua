@@ -9,6 +9,7 @@ function M.setup()
       save_on_toggle = true,
     },
   })
+
   harpoon:extend({
     UI_CREATE = function(cx)
       vim.keymap.set("n", "<C-v>", function()

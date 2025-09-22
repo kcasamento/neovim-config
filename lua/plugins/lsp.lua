@@ -1,6 +1,20 @@
 local M = {}
 
+M.setupNavBuddy = function()
+  local status_ok, navbuddy = pcall(require, "nvim-navbuddy")
+  if not status_ok then return end
+
+  navbuddy.setup({
+    lsp = {
+      auto_attach = true,
+    }
+  })
+end
+
 M.setup = function()
+  local status_ok, navbuddy = pcall(require, "nvim-navbuddy")
+  if not status_ok then return end
+
   require('fidget').setup()
   local lspconfig = require('lspconfig')
 
@@ -37,69 +51,69 @@ M.setup = function()
   )
 
   -- CMP
-  local cmp = require('cmp')
-  local luasnip = require('luasnip')
-  cmp.setup({
-    snippet = {
-      expand = function(args)
-        luasnip.lsp_expand(args.body)
-      end,
-    },
-    mapping = cmp.mapping.preset.insert({
-      ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
-      ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
-      ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-      ["<C-f>"] = cmp.mapping.scroll_docs(4),
-      ["<C-e>"] = cmp.mapping.abort(),
-      ["<c-y>"] = cmp.mapping(
-        cmp.mapping.confirm {
-          behavior = cmp.ConfirmBehavior.Insert,
-          select = true,
-        },
-        { "i", "c" }
-      ),
-      ["<M-y>"] = cmp.mapping(
-        cmp.mapping.confirm {
-          behavior = cmp.ConfirmBehavior.Replace,
-          select = false,
-        },
-        { "i", "c" }
-      ),
-
-      ["<c-space>"] = cmp.mapping {
-        i = cmp.mapping.complete(),
-        c = function(
-            _ --[[fallback]]
-        )
-          if cmp.visible() then
-            if not cmp.confirm { select = true } then
-              return
-            end
-          else
-            cmp.complete()
-          end
-        end,
-      },
-    }),
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp', group_index = 1 },
-      { name = 'copilot',  group_index = 1 },
-      { name = 'luasnip',  group_index = 2 },
-    }, {
-      { name = 'buffer' },
-    }),
-    enabled = function()
-      -- disable completion in comments
-      local context = require 'cmp.config.context'
-      -- keep command mode completion enabled when cursor is in a comment
-      if vim.api.nvim_get_mode().mode == 'c' then
-        return true
-      else
-        return not context.in_treesitter_capture("comment")
-            and not context.in_syntax_group("Comment")
-      end
-    end
-  })
+  -- local cmp = require('cmp')
+  -- local luasnip = require('luasnip')
+  -- cmp.setup({
+  --   snippet = {
+  --     expand = function(args)
+  --       luasnip.lsp_expand(args.body)
+  --     end,
+  --   },
+  --   mapping = cmp.mapping.preset.insert({
+  --     ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
+  --     ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
+  --     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+  --     ["<C-f>"] = cmp.mapping.scroll_docs(4),
+  --     ["<C-e>"] = cmp.mapping.abort(),
+  --     ["<c-y>"] = cmp.mapping(
+  --       cmp.mapping.confirm {
+  --         behavior = cmp.ConfirmBehavior.Insert,
+  --         select = true,
+  --       },
+  --       { "i", "c" }
+  --     ),
+  --     ["<M-y>"] = cmp.mapping(
+  --       cmp.mapping.confirm {
+  --         behavior = cmp.ConfirmBehavior.Replace,
+  --         select = false,
+  --       },
+  --       { "i", "c" }
+  --     ),
+  --
+  --     ["<c-space>"] = cmp.mapping {
+  --       i = cmp.mapping.complete(),
+  --       c = function(
+  --           _ --[[fallback]]
+  --       )
+  --         if cmp.visible() then
+  --           if not cmp.confirm { select = true } then
+  --             return
+  --           end
+  --         else
+  --           cmp.complete()
+  --         end
+  --       end,
+  --     },
+  --   }),
+  --   sources = cmp.config.sources({
+  --     { name = 'nvim_lsp', group_index = 1 },
+  --     { name = 'copilot',  group_index = 1 },
+  --     { name = 'luasnip',  group_index = 2 },
+  --   }, {
+  --     { name = 'buffer' },
+  --   }),
+  --   enabled = function()
+  --     -- disable completion in comments
+  --     local context = require 'cmp.config.context'
+  --     -- keep command mode completion enabled when cursor is in a comment
+  --     if vim.api.nvim_get_mode().mode == 'c' then
+  --       return true
+  --     else
+  --       return not context.in_treesitter_capture("comment")
+  --           and not context.in_syntax_group("Comment")
+  --     end
+  --   end
+  -- })
 
   require("mason").setup({
     ensure_installed = {
@@ -136,6 +150,7 @@ M.setup = function()
       'html',
       'helm_ls',
     },
+    automatic_enable = true,
     automatic_installation = true,
     handlers = {
       function(server_name) -- default handler (optional)
@@ -222,6 +237,7 @@ M.setup = function()
       ['gopls'] = function()
         lspconfig.gopls.setup({
           on_attach = function(client, bufnr)
+            navbuddy.attach(client, bufnr)
             if not client.server_capabilities.semanticTokensProvider then
               local semantic = client.config.capabilities.textDocument.semanticTokens
               client.server_capabilities.semanticTokensProvider = {
@@ -304,6 +320,7 @@ M.setup = function()
       end
     }
   })
+
   local capabilities = require 'cmp_nvim_lsp'.default_capabilities()
   local servers = { 'lua_ls', 'ts_ls', 'pyright', 'gopls', 'clangd', 'ocamllsp', 'elixirls' }
   for _, lsp in ipairs(servers) do
@@ -326,13 +343,22 @@ end
 return {
   'neovim/nvim-lspconfig',
   dependencies = {
-    'williamboman/mason.nvim',
-    'williamboman/mason-lspconfig.nvim',
+    'mason-org/mason.nvim',
+    'mason-org/mason-lspconfig.nvim',
     'hrsh7th/nvim-cmp',
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-nvim-lsp',
     'saadparwaiz1/cmp_luasnip',
     'j-hui/fidget.nvim',
+    {
+      "SmiteshP/nvim-navbuddy",
+      dependencies = {
+        "SmiteshP/nvim-navic",
+        "MunifTanjim/nui.nvim"
+      },
+      opts = { lsp = { auto_attach = true } },
+      config = M.setupNavBuddy
+    }
   },
   config = M.setup,
 }

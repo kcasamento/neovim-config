@@ -53,7 +53,7 @@ opt.foldexpr = 'nvim_treesitter#foldexpr()'
 opt.foldmethod = 'expr'
 opt.foldlevel = 99
 
-opt.conceallevel = 1
+-- opt.conceallevel = 1
 
 vim.o.updatetime = 250
 vim.o.timeout = true

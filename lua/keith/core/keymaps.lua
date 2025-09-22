@@ -131,7 +131,7 @@ keymap.set("n", "<C-Left>", function() require 'smart-splits'.resize_left() end,
 keymap.set("n", "<C-Right>", function() require 'smart-splits'.resize_right() end, mapopts)
 
 -- Lsp Signature
-keymap.set("i", "<C-t>", function() require 'lsp_signature'.toggle_float_win() end, mapopts)
+-- keymap.set("i", "<C-t>", function() require 'lsp_signature'.toggle_float_win() end, mapopts)
 
 -- -- -- Docker
 -- keymap.set("n", "<leader>dt", ":DockerToolsToggle<cr>", mapopts)
@@ -185,7 +185,7 @@ end
 wk.add({
   { "<leader>h",  group = "Harpoon" },
   { "<leader>ha", function() require('harpoon'):list():add() end,                                    desc = "[H]arpoon [A]dd to List" },
-  { "<leader>ht", function() toggle_telescope(require('harpoon'):list()) end,                        desc = "[H]arpoon [T]oggle Marks UI" },
+  { "<leader>ht", function() toggle_telescope(require('harpoon'):list()) end,                        desc = "[H]arpoon [T]oggle Marks UI (Telescope)" },
   { "<leader>hh", function() require('harpoon').ui:toggle_quick_menu(require('harpoon'):list()) end, desc = "[H]arpoon Toggle Marks UI" },
 })
 

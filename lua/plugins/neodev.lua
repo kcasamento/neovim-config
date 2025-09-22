@@ -1,23 +1,33 @@
-local M = {}
-
-M.setup = function()
-  local status_ok, neodev = pcall(require, "neodev")
-  if not status_ok then return end
-
-  neodev.setup({
-    library = {
-      plugins = {
-        "nvim-dap-ui",
-        "nvim-treesitter",
-        "plenary.nvim",
-        "telescope.nvim",
-      },
-      types = true
-    },
-  })
-end
-
 return {
-  'folke/neodev.nvim',
-  config = M.setup,
+  {
+    'saghen/blink.compat',
+    -- use the latest release, via version = '*', if you also use the latest release for blink.cmp
+    version = '*',
+    -- lazy.nvim will automatically load the plugin when it's required by blink.cmp
+    lazy = true,
+    -- make sure to set opts so that lazy.nvim calls blink.compat's setup
+    opts = {},
+  },
+  { -- optional blink completion source for require statements and module annotations
+    "saghen/blink.cmp",
+    version = "1.*",
+    dependencies = {},
+    opts = {
+      fuzzy = { implementation = "prefer_rust_with_warning" },
+      signature = {
+        enabled = false,
+      },
+      completion = {
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 500,
+        },
+      },
+      sources = {
+        -- add lazydev to your completion providers
+        default = { "lsp", "path", "snippets", "buffer" },
+        providers = {},
+      },
+    },
+  }
 }

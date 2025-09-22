@@ -12,6 +12,8 @@ function M.setup()
       "impl",
       "delve",
       "js-debug-adapter",
+      "rust_analyzer",
+      "lua_ls",
     },
     ui = {
       icons = {
@@ -24,6 +26,8 @@ function M.setup()
 end
 
 return {
-  'williamboman/mason.nvim',
+  'mason-org/mason.nvim',
+  version = "^2.0.0",
   config = M.setup,
 }
+

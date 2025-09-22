@@ -1,10 +1,16 @@
 local M = {}
 
 function M.setup()
-  require("symbols-outline").setup()
+  -- Example mapping to toggle outline
+  vim.keymap.set("n", "<leader>o", "<cmd>Outline<CR>",
+    { desc = "Toggle Outline" })
+
+  require("outline").setup {
+    -- Your setup opts here (leave empty to use defaults)
+  }
 end
 
 return {
-  'simrat39/symbols-outline.nvim',
+  "hedyhli/outline.nvim",
   config = M.setup,
 }

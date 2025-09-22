@@ -33,12 +33,13 @@ function M.setup()
     hint_enable = true, -- virtual hint enable
     hint_prefix = "🐼 ", -- Panda for parameter, NOTE: for the terminal not support emoji, might crash
     hint_scheme = "String",
-    hi_parameter = "LspSignatureActiveParameter", -- how your parameter will be highlight
-    max_height = 12, -- max height of signature floating_window, if content is more than max_height, you can scroll down
+    -- hi_parameter = "LspSignatureActiveParameter", -- how your parameter will be highlight
+    hi_parameter = "None", -- how your parameter will be highlight
+    max_height = 12,       -- max height of signature floating_window, if content is more than max_height, you can scroll down
     -- to view the hiding contents
-    max_width = 80, -- max_width of signature floating_window, line will be wrapped if exceed max_width
+    max_width = 80,        -- max_width of signature floating_window, line will be wrapped if exceed max_width
     handler_opts = {
-      border = "rounded" -- double, rounded, single, shadow, none
+      border = "rounded"   -- double, rounded, single, shadow, none
     },
 
     always_trigger = false,     -- sometime show signature on new line or in middle of parameter can be confusing, set it to false for #58
