@@ -16,7 +16,7 @@ M.setup = function()
   if not status_ok then return end
 
   require('fidget').setup()
-  local lspconfig = require('lspconfig')
+  local lspconfig = vim.lsp.config
 
   -- Diagnostics
   local sign = function(opts)
@@ -50,71 +50,6 @@ M.setup = function()
     { border = 'rounded' }
   )
 
-  -- CMP
-  -- local cmp = require('cmp')
-  -- local luasnip = require('luasnip')
-  -- cmp.setup({
-  --   snippet = {
-  --     expand = function(args)
-  --       luasnip.lsp_expand(args.body)
-  --     end,
-  --   },
-  --   mapping = cmp.mapping.preset.insert({
-  --     ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
-  --     ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
-  --     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-  --     ["<C-f>"] = cmp.mapping.scroll_docs(4),
-  --     ["<C-e>"] = cmp.mapping.abort(),
-  --     ["<c-y>"] = cmp.mapping(
-  --       cmp.mapping.confirm {
-  --         behavior = cmp.ConfirmBehavior.Insert,
-  --         select = true,
-  --       },
-  --       { "i", "c" }
-  --     ),
-  --     ["<M-y>"] = cmp.mapping(
-  --       cmp.mapping.confirm {
-  --         behavior = cmp.ConfirmBehavior.Replace,
-  --         select = false,
-  --       },
-  --       { "i", "c" }
-  --     ),
-  --
-  --     ["<c-space>"] = cmp.mapping {
-  --       i = cmp.mapping.complete(),
-  --       c = function(
-  --           _ --[[fallback]]
-  --       )
-  --         if cmp.visible() then
-  --           if not cmp.confirm { select = true } then
-  --             return
-  --           end
-  --         else
-  --           cmp.complete()
-  --         end
-  --       end,
-  --     },
-  --   }),
-  --   sources = cmp.config.sources({
-  --     { name = 'nvim_lsp', group_index = 1 },
-  --     { name = 'copilot',  group_index = 1 },
-  --     { name = 'luasnip',  group_index = 2 },
-  --   }, {
-  --     { name = 'buffer' },
-  --   }),
-  --   enabled = function()
-  --     -- disable completion in comments
-  --     local context = require 'cmp.config.context'
-  --     -- keep command mode completion enabled when cursor is in a comment
-  --     if vim.api.nvim_get_mode().mode == 'c' then
-  --       return true
-  --     else
-  --       return not context.in_treesitter_capture("comment")
-  --           and not context.in_syntax_group("Comment")
-  --     end
-  --   end
-  -- })
-
   require("mason").setup({
     ensure_installed = {
       "goimports",
@@ -134,210 +69,138 @@ M.setup = function()
   })
 
 
-  require("mason-lspconfig").setup({
-    ensure_installed = {
-      'ts_ls',
-      'gopls',
-      'pyright',
-      'lua_ls',
-      'eslint',
-      'terraformls',
-      'jsonls',
-      'tflint',
-      'volar',
-      'clangd',
-      'lemminx',
-      'html',
-      'helm_ls',
-    },
-    automatic_enable = true,
-    automatic_installation = true,
-    handlers = {
-      function(server_name) -- default handler (optional)
-        require("lspconfig")[server_name].setup {}
-      end,
-      ["lemminx"] = function()
-        -- xml lsp
-        lspconfig.lemminx.setup({
-          xml = {
-            server = {
-              workDir = "~/.cache/lemminx",
-            }
-          }
-        })
-      end,
-      ["elixirls"] = function()
-        -- local path_to_elixirls = vim.fn.expand("~/.cache/nvim/lspconfig/elixirls/elixir-ls/release/language_server.sh")
-        lspconfig.elixirls.setup({
-          -- cmd = { path_to_elixirls },
-          settings = {
-            elixirLS = {
-              -- I choose to disable dialyzer for personal reasons, but
-              -- I would suggest you also disable it unless you are well
-              -- acquainted with dialzyer and know how to use it.
-              dialyzerEnabled = false,
-              -- I also choose to turn off the auto dep fetching feature.
-              -- It often get's into a weird state that requires deleting
-              -- the .elixir_ls directory and restarting your editor.
-              fetchDeps = false
-            }
-          }
-        })
-      end,
-      ["yamlls"] = function()
-        lspconfig.yamlls.setup {}
-      end,
-      ["helm_ls"] = function()
-        lspconfig.helm_ls.setup {
-          settings = {
-            ['helm-ls'] = {
-              yamlls = {
-                path = "yaml-language-server",
-              }
-            }
-          }
+  local util = require 'lspconfig.util'
+
+  vim.lsp.enable("lua_ls")
+  vim.lsp.enable("elixirls")
+  vim.lsp.enable("yamlls")
+  vim.lsp.enable("helm_ls")
+  vim.lsp.enable("gopls")
+  vim.lsp.enable("eslint")
+  vim.lsp.enable("ts_ls")
+  vim.lsp.enable("clangd")
+
+
+  vim.lsp.config("helm_ls", {
+    settings = {
+      ['helm-ls'] = {
+        yamlls = {
+          path = "yaml-language-server",
         }
-      end,
-      ["eslint"] = function()
-        local util = require 'lspconfig.util'
-        lspconfig.eslint.setup({
-          root_dir = util.root_pattern(
-            '.eslintrc',
-            '.eslintrc.js',
-            '.eslintrc.cjs',
-            '.eslintrc.yaml',
-            '.eslintrc.yml',
-            '.eslintrc.json'
-          -- Disabled to prevent "No ESLint configuration found" exceptions
-          -- 'package.json',
-          ),
-        })
-        -- Copied from nvim-lspconfig/lua/lspconfig/server_conigurations/eslint.js
-      end,
-      ["lua_ls"] = function()
-        lspconfig.lua_ls.setup({
-          runtime = {
-            -- tell the language server which version of lua you're using (most likely luajit in the case of neovim)
-            version = 'luajit',
-          },
-          diagnostics = {
-            -- get the language server to recognize the `vim` global
-            globals = { 'vim' },
-          },
-          workspace = {
-            -- make the server aware of neovim runtime files
-            library = vim.api.nvim_get_runtime_file("", true),
-          },
-          -- do not send telemetry data containing a randomized but unique identifier
-          telemetry = {
-            enable = false,
-          },
-        })
-      end,
-      ['gopls'] = function()
-        lspconfig.gopls.setup({
-          on_attach = function(client, bufnr)
-            navbuddy.attach(client, bufnr)
-            if not client.server_capabilities.semanticTokensProvider then
-              local semantic = client.config.capabilities.textDocument.semanticTokens
-              client.server_capabilities.semanticTokensProvider = {
-                full = true,
-                legend = {
-                  tokenTypes = semantic.tokenTypes,
-                  tokenModifiers = semantic.tokenModifiers,
-                },
-                range = true,
-              }
-            end
-          end,
-          settings = {
-            gopls = {
-              gofumpt = true,
-              codelenses = {
-                generate = true,
-                gc_details = false,
-                run_govulncheck = true,
-                test = true,
-                tidy = true,
-                updgrade_dependency = true,
-                vendor = true,
-              },
-              hints = {
-                assignVariableTypes = true,
-                compositeLiteralFields = true,
-                compositeLiteralTypes = true,
-                constantValues = true,
-                functionTypeParameters = true,
-                parameterNames = true,
-                rangeVariableTypes = true,
-              },
-              analyses = {
-                fieldalignment = true,
-                nilness = true,
-                unusedparams = true,
-                unusedwrite = true,
-                useany = true,
-              },
-              usePlaceholders = false,
-              completeUnimported = true,
-              directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
-              semanticTokens = true,
-              staticcheck = true,
-            }
-          },
-        })
-      end,
-      ['ts_ls'] = function()
-        lspconfig.ts_ls.setup({
-          settings = {
-            typescript = {
-              format = {
-                indentSize = vim.o.shiftwidth,
-                convertTabsToSpaces = vim.o.expandtab,
-                tabSize = vim.o.tabstop,
-              },
-            },
-            javascript = {
-              format = {
-                indentSize = vim.o.shiftwidth,
-                convertTabsToSpaces = vim.o.expandtab,
-                tabSize = vim.o.tabstop,
-              },
-            },
-            completions = {
-              completeFunctionCalls = true,
-            },
-          }
-        })
-      end,
-      ['clangd'] = function()
-        lspconfig.clangd.setup({
-          cmd = {
-            'clangd',
-            '--offset-encoding=utf=16',
-          },
-        })
-      end
+      }
     }
   })
 
-  local capabilities = require 'cmp_nvim_lsp'.default_capabilities()
-  local servers = { 'lua_ls', 'ts_ls', 'pyright', 'gopls', 'clangd', 'ocamllsp', 'elixirls' }
-  for _, lsp in ipairs(servers) do
-    lspconfig[lsp].setup {
-      capabilities = capabilities,
-    }
-  end
+  vim.lsp.config("lua_ls", {
+    runtime = {
+      -- tell the language server which version of lua you're using (most likely luajit in the case of neovim)
+      version = 'luajit',
+    },
+    diagnostics = {
+      -- get the language server to recognize the `vim` global
+      globals = { 'vim' },
+    },
+    workspace = {
+      -- make the server aware of neovim runtime files
+      library = vim.api.nvim_get_runtime_file("", true),
+    },
+    -- do not send telemetry data containing a randomized but unique identifier
+    telemetry = {
+      enable = false,
+    },
+  }
+  )
+  vim.lsp.config("eslint", {
+    root_dir = util.root_pattern(
+      '.eslintrc',
+      '.eslintrc.js',
+      '.eslintrc.cjs',
+      '.eslintrc.yaml',
+      '.eslintrc.yml',
+      '.eslintrc.json'
+    -- Disabled to prevent "No ESLint configuration found" exceptions
+    -- 'package.json',
+    ),
+  })
+  vim.lsp.config("gopls", {
+    on_attach = function(client, bufnr)
+      navbuddy.attach(client, bufnr)
+      if not client.server_capabilities.semanticTokensProvider then
+        local semantic = client.config.capabilities.textDocument.semanticTokens
+        client.server_capabilities.semanticTokensProvider = {
+          full = true,
+          legend = {
+            tokenTypes = semantic.tokenTypes,
+            tokenModifiers = semantic.tokenModifiers,
+          },
+          range = true,
+        }
+      end
+    end,
+    settings = {
+      gopls = {
+        gofumpt = true,
+        codelenses = {
+          generate = true,
+          gc_details = false,
+          run_govulncheck = true,
+          test = true,
+          tidy = true,
+          updgrade_dependency = true,
+          vendor = true,
+        },
+        hints = {
+          assignVariableTypes = true,
+          compositeLiteralFields = true,
+          compositeLiteralTypes = true,
+          constantValues = true,
+          functionTypeParameters = true,
+          parameterNames = true,
+          rangeVariableTypes = true,
+        },
+        analyses = {
+          nilness = true,
+          unusedparams = true,
+          unusedwrite = true,
+          useany = true,
+        },
+        usePlaceholders = false,
+        completeUnimported = true,
+        directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+        semanticTokens = true,
+        staticcheck = true,
+      }
+    },
+  })
 
-
-  local client_capabilities = vim.lsp.protocol.make_client_capabilities()
-  client_capabilities.textDocument.completion.completionItem.snippetSupport = true
-  local clients = { 'html' }
-  for _, lsp in ipairs(clients) do
-    lspconfig[lsp].setup {
-      capabilities = client_capabilities,
+  vim.lsp.config("ts_ls", {
+    settings = {
+      typescript = {
+        format = {
+          indentSize = vim.o.shiftwidth,
+          convertTabsToSpaces = vim.o.expandtab,
+          tabSize = vim.o.tabstop,
+        },
+      },
+      javascript = {
+        format = {
+          indentSize = vim.o.shiftwidth,
+          convertTabsToSpaces = vim.o.expandtab,
+          tabSize = vim.o.tabstop,
+        },
+      },
+      completions = {
+        completeFunctionCalls = true,
+      },
     }
-  end
+  })
+
+  vim.lsp.config("clangd", {
+    cmd = {
+      'clangd',
+      '--offset-encoding=utf=16',
+    },
+  })
 end
 
 return {
