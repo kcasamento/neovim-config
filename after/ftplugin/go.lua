@@ -1,4 +1,6 @@
-local keymap = vim.keymap -- for conciseness
+local set = vim.opt_local
 
-keymap.set("n", "<leader>gi", ":GoImports<CR>", { noremap = true, silent = true, desc = "[G]o[I]mport" })
-keymap.set("n", "<leader>gs", ":GoFillStruct<CR>", { noremap = true, silent = true, desc = "[G]oFill[S]truct" })
+set.expandtab = false
+set.tabstop = 4
+set.shiftwidth = 4
+-- vim.treesitter.start()
