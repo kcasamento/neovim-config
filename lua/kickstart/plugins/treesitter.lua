@@ -8,7 +8,12 @@ return {
       local langs = {
         'go',
         'javascript',
+        'typescript',
+        'terraform',
+        'python',
+        'proto',
         'bash',
+        'make',
         'c',
         'diff',
         'html',
@@ -19,6 +24,7 @@ return {
         'query',
         'vim',
         'vimdoc',
+        'sql',
       }
       require('nvim-treesitter').setup {}
 
