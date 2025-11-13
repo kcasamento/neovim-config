@@ -44,6 +44,20 @@ return {
         end,
         desc = '[t]est run [f]ile',
       },
+      {
+        '<leader>tn',
+        function()
+          require('neotest').run.run()
+        end,
+        desc = '[t]est [n]earest',
+      },
+      {
+        '<leader>to',
+        function()
+          require('neotest').output.open { last_run = true, enter = true }
+        end,
+        desc = '[t]est [n]earest',
+      },
     },
   },
 }
