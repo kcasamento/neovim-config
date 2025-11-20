@@ -56,7 +56,7 @@ return {
         function()
           require('neotest').output.open { last_run = true, enter = true }
         end,
-        desc = '[t]est [n]earest',
+        desc = '[t]est [o]utput ',
       },
     },
   },

@@ -3,6 +3,20 @@ return {
     'saghen/blink.cmp',
     event = 'VimEnter',
     version = '1.*',
+    -- config = function()
+    --   -- vim.api.nvim_create_autocmd('ModeChanged', {
+    --   --   pattern = '*',
+    --   --   callback = function()
+    --   --     if
+    --   --       ((vim.v.event.old_mode == 's' and vim.v.event.new_mode == 'n') or vim.v.event.old_mode == 'i')
+    --   --       and require('luasnip').session.current_nodes[vim.api.nvim_get_current_buf()]
+    --   --       and not require('luasnip').session.jump_active
+    --   --     then
+    --   --       require('luasnip').unlink_current()
+    --   --     end
+    --   --   end,
+    --   -- })
+    -- end,
     dependencies = {
       -- Snippet Engine
       {
@@ -58,6 +72,8 @@ return {
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
         preset = 'default',
+        ['<Tab>'] = false,
+        ['<S-Tab>'] = false,
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
